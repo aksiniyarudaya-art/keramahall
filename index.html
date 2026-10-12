@@ -1,0 +1,1124 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>КерамаХолл — керамогранит и сантехника</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Manrope:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: редакционная подача (референс Clé Tile) в тонком гротеске — много воздуха, волосяные линии,
+   плитка как фотография; тёмные кинематографичные сцены чередуются со светлыми разворотами. */
+:root{
+  --chalk:#F4F2EE;      /* светлый камень */
+  --paper:#FBFAF8;
+  --ink:#1D1C1A;
+  --ink-2:#56524C;
+  --ink-3:#8E8980;
+  --line:#E2DED6;
+  --glaze:#2A2926;      /* графит */
+  --glaze-2:#4A4741;
+  --glaze-soft:#EFEAE2;
+  --gold:#A88B62;       /* шампань — тонкие акценты */
+  --gold-2:#C9B28C;
+  --night:#111312;
+  --night-2:#1B1E1C;
+  --kiln:#E9864A;       /* только для сцены производства */
+  --on-dark:#EEEDE6;
+  --on-dark-2:#A9ADA8;
+
+  --f-display:"Jost","Futura","Century Gothic","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Manrope","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"Jost","Futura","Helvetica Neue",Arial,sans-serif;
+
+  --gut:clamp(16px,4vw,56px);
+  --maxw:1320px;
+  --hdr:68px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--chalk);color:var(--ink);font:400 16.5px/1.65 var(--f-body);overflow-x:clip;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--glaze-2);outline-offset:3px}
+h1,h2,h3{font-family:var(--f-display);font-weight:200;line-height:1.04;margin:0;text-wrap:balance;letter-spacing:-.02em}
+h3{font-weight:300}
+h1{font-size:clamp(46px,7.2vw,112px)}
+h2{font-size:clamp(36px,5vw,76px)}
+h3{font-size:clamp(24px,2.4vw,34px);line-height:1.1}
+p{margin:0}
+.eyebrow{font:400 11px/1.3 var(--f-mono);letter-spacing:.28em;text-transform:uppercase;color:var(--ink-3)}
+.mono{font-family:var(--f-mono);font-size:13px;letter-spacing:.06em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gut)}
+.lead{font-size:clamp(17px,1.4vw,20px);color:var(--ink-2);max-width:56ch}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:.8em;border:1px solid currentColor;background:transparent;padding:1.35em 2.1em;border-radius:0;text-decoration:none;font:200 12px/1 var(--f-display);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s,border-color .25s;white-space:nowrap}
+.btn .ar{transition:transform .25s}
+.btn:hover .ar{transform:translateX(4px)}
+.btn--solid{background:var(--glaze);border-color:var(--glaze);color:var(--paper)}
+.btn--solid:hover{background:var(--glaze-2);border-color:var(--glaze-2)}
+.btn--light{background:var(--on-dark);border-color:var(--on-dark);color:var(--night)}
+.btn--light:hover{background:#fff}
+.btn--ghost-dark{color:var(--on-dark)}
+.btn--ghost-dark:hover{background:rgba(255,255,255,.08)}
+.link-ar{font:200 12px/1 var(--f-display);letter-spacing:.18em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:6px}
+
+/* ------------- header ------------- */
+.hdr{position:fixed;inset:0 0 auto 0;z-index:50;padding-top:env(safe-area-inset-top,0px);color:var(--on-dark);transition:background .35s,color .35s,box-shadow .35s}
+.hdr.solid{background:rgba(241,240,234,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.hdr__in{height:var(--hdr);display:flex;align-items:center;gap:28px;max-width:none;padding-inline:var(--gut)}
+.logo{text-decoration:none;display:flex;align-items:center;gap:12px;flex:none}
+.logo img{height:38px;width:auto;transition:filter .35s}
+.hdr:not(.solid):not(.menu-open) .logo img{filter:brightness(0) invert(1)}
+.logo .wm{display:none;font:300 19px/1 var(--f-display);letter-spacing:.32em;text-transform:uppercase}
+.logo.noimg img{display:none}.logo.noimg .wm{display:block}
+.hdr .tel{font:300 15px/1 var(--f-display);letter-spacing:.06em;text-decoration:none;white-space:nowrap}
+.nav{display:flex;gap:34px;margin-left:auto;font:400 12px/1 var(--f-display);letter-spacing:.22em;text-transform:uppercase}
+.nav a{text-decoration:none;opacity:.85;white-space:nowrap}
+.nav a:hover{opacity:1}
+.city{display:flex;border:1px solid currentColor;border-radius:0;padding:2px;font:400 11px/1 var(--f-display);letter-spacing:.16em;text-transform:uppercase;opacity:.9}
+.city button{border:0;background:none;padding:.6em .9em;border-radius:0;cursor:pointer;font:inherit;letter-spacing:inherit}
+.city button[aria-pressed="true"]{background:currentColor}
+.city button[aria-pressed="true"] span{color:var(--night)}
+.hdr.solid .city button[aria-pressed="true"] span{color:var(--paper)}
+.hdr .btn{padding:1em 1.4em;font-size:11px}
+.burger{display:none;margin-left:auto;background:none;border:0;padding:8px;cursor:pointer}
+.burger i{display:block;width:24px;height:1.5px;background:currentColor;margin:6px 0}
+.mnav{position:fixed;inset:0;z-index:49;background:var(--chalk);color:var(--ink);padding:calc(var(--hdr) + 24px + env(safe-area-inset-top,0px)) var(--gut) 32px;display:flex;flex-direction:column;gap:18px;font:200 36px/1.1 var(--f-display);letter-spacing:-.01em}
+.mnav .tel{font:300 20px/1 var(--f-display);margin-top:12px;text-decoration:none}
+.mnav a{text-decoration:none}
+.mnav .city{align-self:flex-start;font-family:var(--f-body);font-size:15px}
+@media (max-width:1240px){.hdr .tel{display:none}.nav{gap:24px}}
+@media (max-width:1000px){.nav,.hdr .city,.hdr .btn{display:none}.burger{display:block}.logo img{height:32px}}
+
+/* ------------- pinned scenes ------------- */
+.pin{position:relative;height:calc(100vh + var(--len,200vh));height:calc(100svh + var(--len,200svh))}
+.scene{position:relative;height:100vh;height:100svh;overflow:hidden}
+.pin>.scene{position:sticky;top:0}
+.dark{background:var(--night);color:var(--on-dark)}
+.dark .eyebrow{color:var(--on-dark-2)}
+.dark .lead{color:var(--on-dark-2)}
+
+/* grain */
+.grain::after{content:"";position:absolute;inset:-50%;pointer-events:none;opacity:.09;z-index:3;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain 1.2s steps(4) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+
+/* ===== Block 1. Production ===== */
+#production>.scene{background:radial-gradient(120% 90% at 85% 70%,#3a2316 0%,var(--night) 55%)}
+.belt-vp{position:absolute;inset:0;perspective:900px;perspective-origin:60% 20%;z-index:1}
+.belt{position:absolute;left:-30%;right:-30%;top:52%;height:70%;transform:rotateX(64deg);transform-style:preserve-3d;transform-origin:50% 0}
+.belt-track{display:flex;gap:26px;padding:18px 0;height:100%;width:max-content;will-change:transform}
+.belt-row{display:flex;flex-direction:column;gap:26px}
+.slab{width:300px;height:300px;border-radius:2px;background-size:cover;background-position:center;box-shadow:0 30px 40px rgba(0,0,0,.55);position:relative;flex:none}
+.slab.long{height:600px}
+.slab::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.18),transparent 40%,rgba(0,0,0,.25))}
+.belt-rail{position:absolute;inset:0;background:repeating-linear-gradient(90deg,#1d1f1e 0 6px,#151716 6px 70px);opacity:.9}
+.kiln{position:absolute;top:0;bottom:0;right:-4%;width:46%;z-index:2;pointer-events:none;
+  background:radial-gradient(60% 55% at 70% 72%,rgba(255,150,80,.55),rgba(233,134,74,.18) 45%,transparent 70%);mix-blend-mode:screen;animation:flick 3.2s ease-in-out infinite}
+@keyframes flick{0%,100%{opacity:.85}45%{opacity:1}60%{opacity:.75}}
+.prod-shade{position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(17,19,18,.92) 0%,rgba(17,19,18,.55) 45%,rgba(17,19,18,.05) 75%),linear-gradient(0deg,rgba(17,19,18,.85),transparent 35%)}
+.prod-copy{position:absolute;z-index:4;left:var(--gut);right:var(--gut);top:calc(var(--hdr) + 9vh);max-width:860px;display:grid;gap:26px}
+.prod-copy .lead{max-width:44ch}
+.prod-copy .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.plates{position:absolute;z-index:4;left:var(--gut);right:var(--gut);bottom:6vh;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:1080px}
+.plate{border:0;border-top:1px solid rgba(238,237,230,.35);background:transparent;padding:18px 4px 0 0;min-width:0}
+.plate b{display:block;font:200 clamp(30px,3.4vw,48px)/1 var(--f-display);color:var(--on-dark);margin-bottom:8px}
+.plate span{font-size:13.5px;color:var(--on-dark-2);line-height:1.5;display:block;max-width:30ch}
+.scroll-hint{position:absolute;z-index:4;right:var(--gut);bottom:6vh;writing-mode:vertical-rl;font:500 11px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--on-dark-2)}
+@media (max-width:760px){
+  .plates{grid-template-columns:1fr;gap:8px;bottom:4vh}
+  .plate{padding:12px 14px;display:flex;align-items:baseline;gap:14px}
+  .plate b{font-size:28px;margin:0;flex:none;min-width:4.2em}
+  .plate span{font-size:13px}
+  .prod-copy{top:calc(var(--hdr) + 4vh);gap:16px}
+  .scroll-hint{display:none}
+  .slab{width:180px;height:180px}.slab.long{height:360px}
+}
+
+/* ===== Block 2. Street 20 mm ===== */
+#street>.scene{background:linear-gradient(180deg,#2b3540 0%,#5d6670 38%,#c9a985 62%,#3d3530 62.2%,#2a2522 100%)}
+.house{position:absolute;left:50%;bottom:38%;transform:translateX(-50%);width:min(1100px,120vw);height:46%;z-index:1}
+.house .body{position:absolute;left:8%;right:8%;bottom:0;top:22%;background:linear-gradient(180deg,#2c2a27,#1f1e1c)}
+.house .roof{position:absolute;left:4%;right:4%;top:14%;height:9%;background:#151413}
+.house .win{position:absolute;bottom:0;background:linear-gradient(180deg,#f6c886,#e49a52);box-shadow:0 0 60px rgba(246,190,120,.55)}
+.house .win::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(25% - 2px),#1f1e1c calc(25% - 2px) 25%)}
+.terrace-vp{position:absolute;left:0;right:0;bottom:0;height:38.5%;perspective:700px;perspective-origin:50% 0;z-index:2;overflow:hidden}
+.terrace{position:absolute;left:-60%;right:-60%;top:0;height:260%;transform-origin:50% 0;transform:rotateX(72deg)}
+.street-shade{position:absolute;inset:0;z-index:3;background:linear-gradient(180deg,rgba(17,19,18,.55),transparent 30%,transparent 70%,rgba(17,19,18,.65))}
+.street-copy{position:absolute;z-index:6;left:var(--gut);top:calc(var(--hdr) + 5vh);max-width:640px;display:grid;gap:16px}
+.street-copy h2{font-size:clamp(34px,4.4vw,66px)}
+.planks{position:absolute;inset:0;z-index:5;display:grid;place-items:center;pointer-events:none}
+.plank{grid-area:1/1;width:var(--pw);height:calc(var(--pw) * 6);background-size:cover;background-position:center;border-radius:2px;box-shadow:0 30px 60px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.08);position:relative}
+.plank::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.22),transparent 35%,rgba(0,0,0,.2))}
+.planks{--pw:min(6.6vw,6.8vh);padding-top:20vh}
+.plank-tag{position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);white-space:nowrap;font:500 11px/1 var(--f-mono);letter-spacing:.1em;color:var(--on-dark);text-transform:uppercase;opacity:0}
+.street-cards{position:absolute;z-index:7;left:var(--gut);right:var(--gut);bottom:4.5vh;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.pcard{display:flex;align-items:center;gap:14px;background:rgba(251,250,248,.96);color:var(--ink);padding:10px 20px 10px 10px;border-radius:0;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:transform .25s}
+.pcard:hover{transform:translateY(-3px)}
+.pcard i{width:44px;height:44px;border-radius:0;background-size:cover;background-position:center;flex:none}
+.pcard b{display:block;font:300 17px/1.2 var(--f-display);letter-spacing:.01em}
+.pcard small{font:400 12px/1.2 var(--f-mono);color:var(--ink-3)}
+.pcard .ar{margin-left:6px}
+@media (max-width:760px){.planks{--pw:8.4vw;padding-top:22vh}.street-cards{bottom:3vh;flex-direction:column;align-items:stretch}.street-cards .pcard:last-child{display:none}.pcard{padding:8px 14px 8px 8px}.pcard>span:nth-child(2){flex:1}.pcard i{width:36px;height:36px}.street-copy .lead{font-size:15px}}
+
+/* ===== Block 3. 3D house ===== */
+#home3d>.scene{background:linear-gradient(180deg,#1d2a35 0%,#46505a 55%,#2a2826 100%)}
+.vp{position:absolute;inset:0;perspective:700px;perspective-origin:50% 46%;overflow:hidden;z-index:1}
+.scale3d,.cam,.world{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
+.pl{position:absolute;left:0;top:0;backface-visibility:visible;background-repeat:repeat}
+.pl.plaster{background:linear-gradient(180deg,#e7e2d9,#d6cfc3)}
+.pl.plaster.dim{background:linear-gradient(180deg,#d9d3c8,#c4bcaf)}
+.pl.ceil{background:#efebe4}
+.pl.facade{background:linear-gradient(180deg,#3a3835,#2a2927)}
+.pl.facade.trim{background:#1d1c1b}
+.pl.wood{background:linear-gradient(90deg,#7a5a3f,#8f6c4d 50%,#6f523a)}
+.pl.white{background:linear-gradient(180deg,#fbfaf7,#e9e6df)}
+.pl.fabric{background:#6d7469}
+.pl.fabric.d{background:#5c6359}
+.pl.rug{background:repeating-linear-gradient(90deg,#b9ad9a 0 20px,#ac9f8b 20px 40px)}
+.pl.glow{background:linear-gradient(180deg,#fff0d4,#f6cf92);box-shadow:0 0 80px 20px rgba(255,214,150,.45)}
+.pl.pool{background:radial-gradient(closest-side,rgba(255,230,180,.38),transparent)}
+.pl.mirror{background:linear-gradient(135deg,#c7d0d3,#eef2f2 45%,#aab4b8);box-shadow:inset 0 0 0 6px #1e1f1f}
+.pl.lamp{background:radial-gradient(circle,#fffbe8 0 30%,rgba(255,240,200,0) 70%)}
+.pl .layer{position:absolute;inset:0;opacity:0;transition:opacity .7s ease;background-repeat:repeat}
+.pl .layer.on{opacity:1}
+.vignette{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%,transparent 55%,rgba(10,10,10,.55))}
+.mg{position:absolute;z-index:5;left:var(--gut);top:calc(var(--hdr) + 5vh);width:min(520px,calc(100% - 2 * var(--gut)));pointer-events:none}
+.mg-scrim{position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(90deg,rgba(14,16,15,.72) 0%,rgba(14,16,15,.45) 32%,transparent 58%)}
+@media (max-width:760px){.mg-scrim{background:linear-gradient(180deg,rgba(14,16,15,.75) 0%,rgba(14,16,15,.4) 40%,transparent 62%)}.mg-card p{display:none}.mg-card h3{font-size:34px}}
+.mg-card{position:absolute;left:0;top:0;width:100%;opacity:0;transform:translateY(-20px);transition:opacity .25s ease,transform .3s ease}
+.mg-card.on{opacity:1;transform:none;transition:opacity .6s ease .2s,transform .7s cubic-bezier(.2,.8,.2,1) .2s}
+.mg-card .eyebrow{color:rgba(255,255,255,.75);margin-bottom:12px}
+.mg-card h3{font-size:clamp(34px,4.2vw,62px);color:#fff;text-shadow:0 2px 30px rgba(0,0,0,.35)}
+.mg-card p{color:rgba(255,255,255,.85);margin-top:12px;font-size:17px;max-width:36ch;text-shadow:0 1px 16px rgba(0,0,0,.4)}
+.mg-card .badge{display:inline-block;margin-top:18px;border:1px solid var(--gold-2);color:#fff;padding:.7em 1em;font:400 11px/1.3 var(--f-mono);letter-spacing:.2em;text-transform:uppercase}
+.roombar{position:absolute;z-index:6;left:var(--gut);right:var(--gut);bottom:4vh;display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:rgba(251,250,248,.95);color:var(--ink);padding:10px 10px 10px 24px;border-radius:0;max-width:760px;margin-inline:auto;box-shadow:0 14px 40px rgba(0,0,0,.25)}
+.roombar .room{font:500 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.roombar .tile{font:300 22px/1.1 var(--f-display);flex:1;min-width:0}
+.roombar .tile small{font:400 12px/1 var(--f-mono);color:var(--ink-3);margin-left:8px;letter-spacing:.04em}
+.roombar .dots{display:flex;gap:6px}
+.roombar .dots i{width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .3s}
+.roombar .dots i.on{background:var(--gold)}
+@media (max-width:760px){.roombar{border-radius:0;padding:12px 14px;gap:10px}.roombar .tile{font-size:20px;flex-basis:100%;order:2}.roombar .room{order:1}.roombar .dots{order:1;margin-left:auto}.roombar .btn{order:3;width:100%;justify-content:center}}
+
+/* ===== Block 4. CTA form ===== */
+.cta1{padding-block:clamp(80px,12vw,160px);background:var(--paper)}
+.cta1 .grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:end}
+.cta1 h2{margin-top:16px}
+.cta1 .lead{margin-top:20px}
+.form{display:grid;gap:14px}
+.field{display:grid;gap:6px}
+.field label{font:500 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.field input,.field select{border:0;border-bottom:1px solid var(--line);background:transparent;padding:12px 0;font:300 19px/1.3 var(--f-display);border-radius:0;outline:none;width:100%}
+.field input:focus,.field select:focus{border-color:var(--glaze)}
+.roles{display:flex;flex-wrap:wrap;gap:8px}
+.roles label{cursor:pointer;position:relative}
+.roles input{position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none}
+.roles span{display:inline-block;border:1px solid var(--line);padding:.7em 1.1em;border-radius:0;font:400 11px/1 var(--f-display);letter-spacing:.16em;text-transform:uppercase;transition:all .2s}
+.roles input:checked+span{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.roles input:focus-visible+span{outline:2px solid var(--glaze-2);outline-offset:2px}
+.form .btn{justify-self:start;margin-top:8px}
+.form .ok{display:none;font:200 28px/1.2 var(--f-display);color:var(--ink)}
+.form.sent .ok{display:block}
+.form.sent .hide-on-sent{display:none}
+.fine{font-size:12.5px;color:var(--ink-3)}
+@media (max-width:860px){.cta1 .grid{grid-template-columns:1fr}}
+
+/* ===== Block 5. Film ===== */
+#film>.scene{background:var(--night)}
+.frame{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);background:var(--f-bg,#1b1e1c);color:var(--f-fg,#eeede6);clip-path:inset(0 0 0 0)}
+.frame .ph{position:relative;overflow:hidden}
+.frame .ph i{position:absolute;inset:-6%;background-size:cover;background-position:center;will-change:transform}
+.frame .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(0,0,0,.18))}
+.frame .tx{display:flex;flex-direction:column;justify-content:center;gap:18px;padding:calc(var(--hdr) + 3vh) var(--gut) 8vh;min-width:0}
+.frame .num{font:400 11px/1 var(--f-mono);letter-spacing:.26em;opacity:.6}
+.frame h3{font-size:clamp(40px,5.4vw,84px)}
+.frame .spec{font:400 11px/1.5 var(--f-mono);opacity:.75;letter-spacing:.22em;text-transform:uppercase}
+.frame .tx p{max-width:34ch;opacity:.85}
+.hot{position:absolute;z-index:3;display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-size:14px;font-weight:500}
+.hot .pin{width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 0 0 6px rgba(255,255,255,.25),0 0 0 14px rgba(255,255,255,.1);animation:pulse 2s ease-out infinite;flex:none}
+.hot .lbl{background:rgba(17,19,18,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:.8em 1.1em;font:400 11px/1 var(--f-display);letter-spacing:.18em;text-transform:uppercase}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.5),0 0 0 0 rgba(255,255,255,.2)}100%{box-shadow:0 0 0 10px rgba(255,255,255,0),0 0 0 22px rgba(255,255,255,0)}}
+.frame.final{grid-template-columns:1fr;place-items:center;text-align:center;background:var(--night)}
+.final a{text-decoration:none;display:block;padding:0 var(--gut)}
+.final .big{display:block;font:200 clamp(52px,10.5vw,180px)/.95 var(--f-display);letter-spacing:.02em;background-size:cover;background-position:center;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 4px 30px rgba(0,0,0,.4))}
+.final .go{display:inline-flex;margin-top:28px;color:var(--on-dark)}
+.film-progress{position:absolute;z-index:4;left:var(--gut);right:var(--gut);bottom:3vh;height:2px;background:rgba(255,255,255,.15)}
+.film-progress i{display:block;height:100%;width:0;background:#fff}
+.film-tc{position:absolute;z-index:4;right:var(--gut);bottom:calc(3vh + 12px);font:500 11px/1 var(--f-mono);letter-spacing:.12em;color:rgba(255,255,255,.7)}
+@media (max-width:760px){
+  .frame{grid-template-columns:1fr;grid-template-rows:52% 48%}
+  .frame .tx{padding:22px var(--gut) 9vh;gap:10px;justify-content:flex-start}
+  .frame h3{font-size:40px}
+  .frame .tx p{font-size:15px}
+}
+
+/* ===== Block 6. Partners ===== */
+.partners{background:var(--glaze);color:var(--on-dark);padding-block:clamp(80px,11vw,150px)}
+.partners .eyebrow{color:var(--gold-2)}
+.partners .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start}
+.partners h2{margin:16px 0 22px}
+.partners .lead{color:#BDB8AE}
+.perks{list-style:none;padding:0;margin:34px 0 0;display:grid;gap:0;border-top:1px solid rgba(255,255,255,.18)}
+.perks li{display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.18)}
+.perks b{font:200 30px/1 var(--f-display);white-space:nowrap}
+.perks span{color:#BDB8AE;font-size:15px}
+.calc{background:var(--paper);color:var(--ink);border-radius:0;padding:clamp(22px,3vw,36px);box-shadow:0 30px 80px rgba(0,0,0,.25)}
+.calc .head{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:20px}
+.calc .head b{font:300 22px/1.2 var(--f-display)}
+.calc .tag{font:400 10px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--gold);color:var(--gold);padding:.55em .8em}
+.calc .row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0}
+.calc .row span{color:var(--ink-2);font-size:15px}
+.calc .row .v{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:16px}
+.calc .row.strike .v{text-decoration:line-through;color:var(--ink-3)}
+.calc .yours{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-top:10px;padding-top:18px;border-top:1px dashed var(--line)}
+.calc .yours span{font:500 11px/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.calc .yours .v{font:200 clamp(40px,4.5vw,58px)/1 var(--f-display);color:var(--ink);font-variant-numeric:tabular-nums}
+.calc .rrp{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:0;padding:6px 10px}
+.calc .rrp input{border:0;background:none;width:90px;text-align:right;font-family:var(--f-mono);font-size:16px;outline:none}
+.switch{display:flex;align-items:center;gap:12px;cursor:pointer;margin:14px 0 4px;font-size:15px}
+.switch input{position:absolute;opacity:0;pointer-events:none}
+.switch i{width:44px;height:26px;border-radius:999px;background:var(--line);position:relative;transition:background .25s;flex:none}
+.switch i::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .25s}
+.switch input:checked+i{background:var(--gold)}
+.switch input:checked+i::after{transform:translateX(18px)}
+.switch input:focus-visible+i{outline:2px solid var(--glaze-2);outline-offset:2px}
+.calc .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.calc .actions .btn{flex:1;justify-content:center}
+@media (max-width:900px){.partners .grid{grid-template-columns:1fr}.perks li{grid-template-columns:100px minmax(0,1fr)}}
+
+/* ===== Block 7. About slider ===== */
+.about{padding-block:clamp(80px,11vw,150px) clamp(60px,8vw,110px)}
+.about .top{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:36px;flex-wrap:wrap}
+.slider{position:relative;overflow:hidden}
+.slides{display:flex;transition:transform .9s cubic-bezier(.7,0,.2,1);touch-action:pan-y}
+.slide{flex:0 0 100%;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);min-height:min(68vh,620px);background:var(--paper)}
+.slide .ph{background-size:cover;background-position:center;position:relative;min-height:300px}
+.slide .ph::after{content:attr(data-cap);position:absolute;left:18px;bottom:16px;font:400 10px/1 var(--f-mono);letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(17,19,18,.55);padding:.8em 1em}
+.slide .tx{padding:clamp(24px,4vw,56px);display:flex;flex-direction:column;justify-content:flex-end;gap:16px;min-width:0}
+.slide .idx{font:400 11px/1 var(--f-mono);letter-spacing:.26em;color:var(--gold)}
+.slide h3{font-size:clamp(32px,3.6vw,54px)}
+.slide p{color:var(--ink-2);max-width:40ch}
+.sctl{display:flex;align-items:center;gap:14px}
+.sctl button.arrow{width:52px;height:52px;border-radius:0;border:1px solid var(--line);background:none;cursor:pointer;font:200 20px/1 var(--f-display)}
+.sctl button.arrow:hover{background:var(--ink);color:var(--paper)}
+.sdots{display:flex;gap:8px}
+.sdots button{width:28px;height:1px;border:0;background:var(--line);cursor:pointer;padding:0;position:relative;overflow:hidden}
+.sdots button.on{background:var(--ink)}
+@media (max-width:820px){.slide{grid-template-columns:1fr}.slide .ph{min-height:46vh}}
+
+/* ===== Block 8. Pro CTA ===== */
+.pro{padding-block:clamp(80px,11vw,150px);background:var(--paper);border-top:1px solid var(--line)}
+.pro .head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;margin-bottom:clamp(36px,5vw,64px)}
+.pro .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+.pro .col{padding:28px 28px 34px 0;display:flex;flex-direction:column;gap:14px;min-width:0}
+.pro .col+.col{padding-left:28px;border-left:1px solid var(--line)}
+.pro .col .k{font:400 11px/1 var(--f-mono);letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.pro .col ul{margin:0;padding:0;list-style:none;display:grid;gap:10px;color:var(--ink-2);font-size:15.5px}
+.pro .col li{padding-left:18px;position:relative}
+.pro .col li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:1px;background:var(--ink-3)}
+.pro .col .link-ar{margin-top:auto;align-self:flex-start}
+@media (max-width:900px){.pro .head{grid-template-columns:1fr}.pro .cols{grid-template-columns:1fr}.pro .col,.pro .col+.col{padding:24px 0;border-left:0;border-bottom:1px solid var(--line)}}
+
+/* ===== Block 9. Facts (sticky) ===== */
+.facts{padding-block:clamp(80px,10vw,140px);background:var(--chalk)}
+.facts .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start}
+.facts .stick{position:sticky;top:calc(var(--hdr) + 28px);display:grid;gap:24px}
+.facts .stick .ph{aspect-ratio:4/5;max-height:62vh;width:100%;border-radius:0;position:relative;overflow:hidden;background:var(--line)}
+.facts .stick .ph i{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .6s ease,transform 1.2s ease;transform:scale(1.06)}
+.facts .stick .ph i.on{opacity:1;transform:none}
+.facts .stick .cap{position:absolute;left:16px;bottom:14px;z-index:2;font:400 10px/1 var(--f-mono);letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(17,19,18,.55);padding:.8em 1em}
+.flist{list-style:none;margin:0;padding:0}
+.fact{display:grid;grid-template-columns:52px minmax(0,1fr);gap:22px;padding:clamp(30px,6vh,64px) 0;border-top:1px solid var(--line);opacity:.38;transition:opacity .4s}
+.fact.on{opacity:1}
+.fact:last-child{border-bottom:1px solid var(--line)}
+.fact svg{width:40px;height:40px;stroke:var(--gold);fill:none;stroke-width:1}
+.fact b{display:block;font:200 clamp(44px,5vw,76px)/1 var(--f-display);margin-bottom:10px;font-variant-numeric:tabular-nums}
+.fact p{color:var(--ink-2);max-width:38ch}
+@media (max-width:820px){.facts .grid{grid-template-columns:1fr}.facts .stick{position:relative;top:0}.facts .stick .ph{aspect-ratio:16/10}.fact{opacity:1}}
+
+/* ===== Block 10. Subscribe ===== */
+.sub{background:var(--night);color:var(--on-dark);padding-block:clamp(80px,10vw,140px);position:relative;overflow:hidden}
+.sub .eyebrow{color:var(--on-dark-2)}
+.sub .grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:end;position:relative;z-index:1}
+.sub h2{margin-top:16px}
+.sub .lead{color:var(--on-dark-2);margin-top:18px}
+.sub .field label{color:var(--on-dark-2)}
+.sub .field input{border-color:rgba(238,237,230,.4);color:var(--on-dark)}
+.sub .roles span{border-color:rgba(238,237,230,.25)}
+.sub .roles input:checked+span{background:var(--on-dark);color:var(--night);border-color:var(--on-dark)}
+.sub .form .ok{color:var(--on-dark)}
+.sub .fine{color:var(--on-dark-2)}
+.sub .mosaic{position:absolute;right:-6%;top:-20%;width:46%;height:140%;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;transform:rotate(-12deg);opacity:.18;z-index:0}
+.sub .mosaic i{background-size:cover;background-position:center;border-radius:2px}
+@media (max-width:860px){.sub .grid{grid-template-columns:1fr}.sub .mosaic{display:none}}
+
+/* ===== Block 11. Footer ===== */
+.foot{background:var(--chalk);padding-block:clamp(64px,8vw,110px) 40px;border-top:1px solid var(--line)}
+.foot .big{margin-bottom:clamp(40px,6vw,80px)}
+.foot .big img{height:clamp(56px,9vw,120px);width:auto}
+.foot .big .wm{font:200 clamp(40px,8vw,120px)/1 var(--f-display);letter-spacing:.2em;text-transform:uppercase}
+.foot .big.noimg img{display:none}.foot .big:not(.noimg) .wm{display:none}
+.foot .cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px}
+.foot h4{margin:0 0 16px;font:400 11px/1 var(--f-mono);letter-spacing:.26em;text-transform:uppercase;color:var(--ink-3)}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:15px}
+.foot a{text-decoration:none}
+.foot a:hover{text-decoration:underline}
+.foot .addr{font-size:15px;line-height:1.55;color:var(--ink-2)}
+.foot .addr b{color:var(--ink);font-weight:600;display:block}
+.foot .phone{font:200 28px/1.2 var(--f-display);color:var(--ink);display:block;margin:6px 0;text-decoration:none}
+.foot .bottom{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink-3)}
+@media (max-width:860px){.foot .cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.foot .cols{grid-template-columns:1fr}}
+
+/* ===== popup ===== */
+.pop{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:16px;background:rgba(17,19,18,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.pop__box{width:min(880px,100%);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1fr);background:var(--paper);border-radius:0;overflow:hidden;position:relative;box-shadow:0 40px 100px rgba(0,0,0,.35);animation:popin .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes popin{from{opacity:0;transform:translateY(30px) scale(.98)}}
+.pop__ph{background-size:cover;background-position:center;min-height:320px}
+.pop__tx{padding:clamp(24px,4vw,44px);display:grid;gap:16px;align-content:center}
+.pop__tx h3{font-size:clamp(30px,3.4vw,44px)}
+.pop__tx p{color:var(--ink-2)}
+.pop__x{position:absolute;right:12px;top:12px;width:40px;height:40px;border-radius:0;border:0;background:rgba(250,250,246,.9);cursor:pointer;font-size:20px;line-height:1}
+@media (max-width:700px){.pop__box{grid-template-columns:1fr}.pop__ph{min-height:160px}}
+
+section,footer{position:relative}
+
+/* ===== static fallback (нет GSAP или включено «уменьшить движение») ===== */
+.static .pin{height:auto}
+.static .pin>.scene{position:relative}
+.static #film>.scene{height:auto}
+.static .frame{position:relative;min-height:90svh;clip-path:none!important}
+.static .film-progress,.static .film-tc{display:none}
+.js .rv{opacity:0;transform:translateY(40px);transition:opacity 1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.grain::after,.kiln,.hot .pin{animation:none}.slides{transition:none}}
+.foot .credits{margin:28px 0 0;font-size:12px;line-height:1.7;opacity:.55;max-width:90ch}.foot .credits a{text-decoration:underline;text-underline-offset:2px}
+.street-copy h2,.street-copy p{text-shadow:0 1px 18px rgba(10,12,12,.55)}
+.street-copy::before{content:"";position:absolute;inset:-60px -90px -60px -120px;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(20,22,26,.62),rgba(20,22,26,0))}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="hdr" id="hdr">
+  <div class="hdr__in">
+    <a class="logo" href="#top" aria-label="КерамаХолл"><img src="https://static.tildacdn.com/tild6535-3361-4265-a539-386434396134/___1-06_1.png" alt="КерамаХолл" data-logo><span class="wm">КерамаХолл</span></a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#film">Каталог</a>
+      <a href="#film">Сантехника</a>
+      <a href="#about">О компании</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <span class="tel">+7 903 392-25-00</span>
+    <div class="city" role="group" aria-label="Город">
+      <button type="button" aria-pressed="true" data-city="orb"><span>Оренбург</span></button>
+      <button type="button" aria-pressed="false" data-city="msk"><span>Москва</span></button>
+    </div>
+    <a class="btn btn--ghost-dark btn--dealer" href="#partners" style="color:inherit">Вход для дилеров</a>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" id="burger"><i></i><i></i></button>
+  </div>
+</header>
+<nav class="mnav" id="mnav" hidden aria-label="Мобильное меню">
+  <a href="#film">Каталог</a>
+  <a href="#film">Сантехника</a>
+  <a href="#about">О компании</a>
+  <a href="#contacts">Контакты</a>
+  <span class="tel">+7 903 392-25-00</span>
+  <div class="city" role="group" aria-label="Город">
+    <button type="button" aria-pressed="true" data-city="orb"><span>Оренбург</span></button>
+    <button type="button" aria-pressed="false" data-city="msk"><span>Москва</span></button>
+  </div>
+</nav>
+
+<main id="top">
+
+<!-- ============ 1. PRODUCTION ============ -->
+<section class="pin" id="production" style="--len:200vh;--len:200svh"><div class="scene dark grain">
+  <div class="belt-vp" aria-hidden="true">
+    <div class="belt"><div class="belt-rail"></div><div class="belt-track" id="beltTrack"></div></div>
+  </div>
+  <div class="kiln" aria-hidden="true"></div>
+  <div class="prod-shade" aria-hidden="true"></div>
+  <div class="prod-copy">
+    <p class="eyebrow" id="cityLine">Оренбург · Москва</p>
+    <h1>Плитка, в&nbsp;которую хочется войти</h1>
+    <p class="lead">Керамогранит и сантехника для дома, улицы и объектов. Показываем плитку так, как она будет лежать у вас.</p>
+    <div class="actions">
+      <a class="btn btn--light" href="#film">Смотреть каталог <span class="ar">→</span></a>
+      <a class="btn btn--ghost-dark" href="#partners">Дилерам и дистрибьюторам</a>
+    </div>
+  </div>
+  <div class="plates">
+    <div class="plate"><b>1 200 °C</b><span>обжиг: масса спекается в однородный монолит</span></div>
+    <div class="plate"><b>&lt; 0,5 %</b><span>водопоглощение: не боится воды и мороза</span></div>
+    <div class="plate"><b>70 000 м²</b><span>керамогранита в наличии на складе в Оренбурге</span></div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">Листайте вниз</div>
+</div></section>
+
+<!-- ============ 2. STREET 20 MM ============ -->
+<section class="pin" id="street" style="--len:260vh;--len:260svh"><div class="scene dark">
+  <div class="house" aria-hidden="true">
+    <div class="roof"></div>
+    <div class="body"></div>
+    <div class="win" style="left:14%;width:22%;height:58%"></div>
+    <div class="win" style="left:42%;width:30%;height:66%"></div>
+    <div class="win" style="left:78%;width:10%;height:58%"></div>
+  </div>
+  <div class="terrace-vp" aria-hidden="true"><div class="terrace" id="terrace"></div></div>
+  <div class="street-shade" aria-hidden="true"></div>
+  <div class="street-copy">
+    <p class="eyebrow">Улица · керамогранит 20 мм</p>
+    <h2>Терраса, бассейн, двор, заезд</h2>
+    <p class="lead">Плита толщиной 20 мм кладётся на песок, гравий или опоры. Выдерживает машину и не скользит после дождя.</p>
+  </div>
+  <div class="planks" id="planks" aria-hidden="true"></div>
+  <div class="street-cards" id="streetCards">
+    <a class="pcard" href="#film"><i data-tile="alder-biege-20x120"></i><span><b>Alder biege</b><small>20×120 · 20 мм</small></span><span class="ar">→</span></a>
+    <a class="pcard" href="#film"><i data-tile="jambo-20x120"></i><span><b>Jambo</b><small>20×120 · 20 мм</small></span><span class="ar">→</span></a>
+    <a class="pcard" href="#film" style="background:var(--glaze);color:#fff"><span><b>Вся улица 20 мм</b><small style="color:#cfe0d9">в каталоге</small></span><span class="ar">→</span></a>
+  </div>
+</div></section>
+
+<!-- ============ 3. HOUSE FLY-THROUGH ============ -->
+<section class="pin" id="home3d" style="--len:420vh;--len:420svh"><div class="scene dark">
+  <div class="vp" id="vp" aria-hidden="true">
+    <div class="scale3d" id="scale3d"><div class="cam" id="cam"><div class="world" id="world"></div></div></div>
+  </div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="mg-scrim" aria-hidden="true"></div>
+  <div class="mg" aria-live="polite">
+    <div class="mg-card" data-mg="0"><p class="eyebrow">Дистрибьюторам</p><h3>Склад в&nbsp;Москве и&nbsp;цена ниже РРЦ</h3><p>Работаем с дилерами напрямую. Своя цена в личном кабинете.</p><span class="badge">−35 % · самовывоз −40 %</span></div>
+    <div class="mg-card" data-mg="1"><p class="eyebrow">Дизайнерам</p><h3>Ваш проект с&nbsp;нашей плиткой в&nbsp;3D</h3><p>Соберём сцену с точной раскладкой: тот же формат, рисунок и швы, что на складе.</p><span class="badge">персональная скидка</span></div>
+    <div class="mg-card" data-mg="2"><p class="eyebrow">Строителям и застройщикам</p><h3>Одна партия на&nbsp;весь объект</h3><p>Резервируем плитку одного тона и калибра, отгружаем с двух складов.</p><span class="badge">расчёт под объект</span></div>
+  </div>
+  <div class="roombar">
+    <span class="room" id="roomName">Вход</span>
+    <span class="dots" id="tileDots" hidden><i class="on"></i><i></i><i></i><i></i></span>
+    <span class="tile" id="roomTile">Jambo <small>20×120 · 20 мм</small></span>
+    <a class="btn btn--solid" href="#film">Перейти в каталог <span class="ar">→</span></a>
+  </div>
+</div></section>
+
+<!-- ============ 4. CTA ============ -->
+<section class="cta1" id="request">
+  <div class="wrap grid">
+    <div>
+      <p class="eyebrow">Расчёт за вас</p>
+      <h2>Подберём плитку и&nbsp;посчитаем метраж под ваш проект</h2>
+      <p class="lead">Пришлите план или просто размеры комнаты. Менеджер подберёт 2–3 варианта из наличия и назовёт цену с вашей скидкой.</p>
+    </div>
+    <form class="form" data-form>
+      <div class="hide-on-sent" style="display:grid;gap:14px">
+        <div class="field"><label for="r-name">Имя</label><input id="r-name" name="name" autocomplete="name" placeholder="Как к вам обращаться"></div>
+        <div class="field"><label for="r-phone">Телефон</label><input id="r-phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 ___ ___-__-__" required></div>
+        <div class="field"><label>Вы</label>
+          <div class="roles">
+            <label><input type="radio" name="role" id="role-1" checked><span>Делаю ремонт</span></label>
+            <label><input type="radio" name="role" id="role-2"><span>Дизайнер</span></label>
+            <label><input type="radio" name="role" id="role-3"><span>Строитель</span></label>
+            <label><input type="radio" name="role" id="role-4"><span>Дилер</span></label>
+          </div>
+        </div>
+        <button class="btn btn--solid" type="submit">Оставить заявку <span class="ar">→</span></button>
+        <p class="fine">Перезвоним в рабочее время. Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+      </div>
+      <p class="ok">Спасибо, заявка принята. Перезвоним в рабочее время.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ 5. FILM ============ -->
+<section class="pin" id="film" style="--len:230vh;--len:230svh"><div class="scene">
+  <div class="frame" style="--f-bg:#d9cfc1;--f-fg:#1a1c1b">
+    <div class="ph"><i data-tile="karizma-60x120" data-photo="https://images.unsplash.com/photo-1716078410207-20e223587181?auto=format&fit=crop&w=1600&q=70"></i><a class="hot" href="#film" style="left:56%;top:58%"><span class="pin"></span><span class="lbl">Karizma 60×120</span></a></div>
+    <div class="tx"><span class="num">01 / 05</span><h3>Тёплый минимализм</h3><p class="spec">Karizma · 60×120 · матовая</p><p>Спокойная фактура для гостиной и спальни, которая не спорит с мебелью.</p></div>
+  </div>
+  <div class="frame" style="--f-bg:#ecebe6;--f-fg:#1a1c1b">
+    <div class="ph"><i data-tile="marbella-pearl-60x120" data-photo="https://images.unsplash.com/photo-1753605788101-04d1e653e74a?auto=format&fit=crop&w=1600&q=70"></i><a class="hot" href="#film" style="left:40%;top:40%"><span class="pin"></span><span class="lbl">Marbella Pearl 60×120</span></a></div>
+    <div class="tx"><span class="num">02 / 05</span><h3>Светлый мрамор</h3><p class="spec">Marbella Pearl · 60×120</p><p>Мрамор без капризов: не впитывает, не требует пропитки, легко моется.</p></div>
+  </div>
+  <div class="frame" style="--f-bg:#191a1a;--f-fg:#eeede6">
+    <div class="ph"><i data-tile="enrique-black-60x120" data-photo="https://images.unsplash.com/photo-1642755622932-d1e0cb783dc5?auto=format&fit=crop&w=1600&q=70"></i><a class="hot" href="#film" style="left:30%;top:62%"><span class="pin"></span><span class="lbl">Enrique black 60×120</span></a></div>
+    <div class="tx"><span class="num">03 / 05</span><h3>Чёрная ванная</h3><p class="spec">Enrique black · 60×120</p><p>Глубокий тёмный камень с прожилками. Хорошо выглядит с латунью и тёплым светом.</p></div>
+  </div>
+  <div class="frame" style="--f-bg:#c9d3d2;--f-fg:#1a1c1b">
+    <div class="ph"><i data-tile="water-fall-60x120" data-photo="https://images.unsplash.com/photo-1763485956343-61b0163a3e7e?auto=format&fit=crop&w=1600&q=70"></i><a class="hot" href="#film" style="left:52%;top:34%"><span class="pin"></span><span class="lbl">Water fall 60×120</span></a></div>
+    <div class="tx"><span class="num">04 / 05</span><h3>Вода и&nbsp;свет</h3><p class="spec">Water fall · 60×120 · акция</p><p>Рисунок, который хорошо держит большой формат на стене душевой.</p></div>
+  </div>
+  <div class="frame" style="--f-bg:#e3ddd3;--f-fg:#1a1c1b">
+    <div class="ph"><i data-tile="deylan-100x100" data-photo="https://images.unsplash.com/photo-1772797583328-f83bc3f94f80?auto=format&fit=crop&w=1600&q=70"></i><a class="hot" href="#film" style="left:46%;top:52%"><span class="pin"></span><span class="lbl">Deylan 100×100</span></a></div>
+    <div class="tx"><span class="num">05 / 05</span><h3>Большой формат</h3><p class="spec">Deylan · 100×100 · глянец</p><p>Меньше швов, больше пространства. Метр на метр на полу гостиной.</p></div>
+  </div>
+  <div class="frame final">
+    <a href="#film"><span class="big" data-tile="water-fall-60x120">СМОТРЕТЬ КАТАЛОГ</span><span class="btn btn--ghost-dark go">55 коллекций в наличии <span class="ar">→</span></span></a>
+  </div>
+  <div class="film-progress" aria-hidden="true"><i id="filmBar"></i></div>
+  <div class="film-tc" id="filmTc" aria-hidden="true">00:00</div>
+</div></section>
+
+<!-- ============ 6. PARTNERS ============ -->
+<section class="partners" id="partners">
+  <div class="wrap grid">
+    <div>
+      <p class="eyebrow">Москва · дистрибуция</p>
+      <h2>Москву начинаем с&nbsp;дилеров</h2>
+      <p class="lead">Шоурума в Москве пока нет. Есть склад, свой ассортимент и цена для тех, кто продаёт плитку дальше.</p>
+      <ul class="perks">
+        <li><b>−35 %</b><span>от РРЦ на весь ассортимент склада для дилеров</span></li>
+        <li><b>−40 %</b><span>при самовывозе со склада в Москве</span></li>
+        <li><b>24/7</b><span>личный кабинет: ваша цена и остатки из нашей системы, без запросов менеджеру</span></li>
+      </ul>
+    </div>
+    <div class="calc" aria-label="Пример расчёта дилерской цены">
+      <div class="head"><b>Цена в кабинете дилера</b><span class="tag">пример</span></div>
+      <div class="row"><span>РРЦ на витрине, ₽/м²</span><label class="rrp"><input id="rrp" type="number" inputmode="numeric" value="2000" min="100" step="10" aria-label="РРЦ, рублей за метр"></label></div>
+      <div class="row strike"><span>Розничная цена</span><span class="v" id="rrpOut">2 000 ₽</span></div>
+      <label class="switch"><input type="checkbox" id="pickup"><i></i><span>Самовывоз со склада в Москве</span></label>
+      <div class="yours"><span id="discLabel">Ваша цена<br>−35 %</span><span class="v" id="yourPrice">1 300 ₽</span></div>
+      <div class="actions">
+        <a class="btn btn--solid" href="#request">Стать дилером</a>
+        <a class="btn" href="#partners">Вход в кабинет</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. ABOUT ============ -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="top">
+      <div><p class="eyebrow">О компании</p><h2 style="margin-top:14px">КерамаХолл</h2></div>
+      <div class="sctl">
+        <div class="sdots" id="sdots"></div>
+        <button class="arrow" type="button" id="sPrev" aria-label="Предыдущий слайд">←</button>
+        <button class="arrow" type="button" id="sNext" aria-label="Следующий слайд">→</button>
+      </div>
+    </div>
+    <div class="slider">
+      <div class="slides" id="slides">
+        <article class="slide"><div class="ph" data-photo="https://images.unsplash.com/photo-1763485955998-a9284d042d50?auto=format&fit=crop&w=1400&q=70" data-tile="villa-60x60" data-cap="Оренбург · шоурум"></div><div class="tx"><span class="idx">01</span><h3>Шоурум в&nbsp;Оренбурге</h3><p>Ул. Автоматики, 10А. Плитку можно потрогать, сравнить партии и разложить на полу рядом с образцами сантехники.</p></div></article>
+        <article class="slide"><div class="ph" data-photo="https://images.unsplash.com/photo-1694885156873-6a0823e14848?auto=format&fit=crop&w=1400&q=70" data-tile="concept-dark-60x120" data-cap="Москва · склад"></div><div class="tx"><span class="idx">02</span><h3>Склад в&nbsp;Москве</h3><p>Свой ассортимент и остатки. Отгружаем дилерам и на объекты, самовывоз со склада дешевле.</p></div></article>
+        <article class="slide"><div class="ph" data-photo="https://images.unsplash.com/photo-1754574741164-a41418029cfb?auto=format&fit=crop&w=1400&q=70" data-tile="tiana-decor-60x120" data-cap="3D-визуализация"></div><div class="tx"><span class="idx">03</span><h3>Ванная до&nbsp;покупки</h3><p>Собираем ванную в 3D с точной раскладкой: формат, рисунок и швы такие же, как у плитки на складе.</p></div></article>
+        <article class="slide"><div class="ph" data-tile="rozalin-60x120" data-cap="Склад"></div><div class="tx"><span class="idx">04</span><h3>70&nbsp;000 м² в&nbsp;наличии</h3><p>Более 70 000 квадратных метров керамогранита на складе в Оренбурге. Форматы от 45×45 до 100×100 см. Матовые, глянцевые и карвинг-поверхности, уличный керамогранит 20 мм.</p></div></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. PRO CTA ============ -->
+<section class="pro" id="pro">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Профессионалам</p><h2 style="margin-top:14px">Работаете с&nbsp;объектами? Условия будут другими</h2></div>
+      <a class="btn btn--solid" href="#request">Получить условия <span class="ar">→</span></a>
+    </div>
+    <div class="cols">
+      <div class="col"><span class="k">Дизайнерам</span><h3>Проект с&nbsp;точной плиткой</h3><ul><li>Персональная скидка на заказы клиентов</li><li>3D-сцена с вашей раскладкой</li><li>Образцы и подборка коллекций под стиль</li></ul><a class="link-ar" href="#request">Стать партнёром →</a></div>
+      <div class="col"><span class="k">Строителям</span><h3>Наличие без звонков</h3><ul><li>Остатки двух складов онлайн</li><li>Расчёт метража с запасом на подрезку</li><li>Отгрузка из Оренбурга или Москвы</li></ul><a class="link-ar" href="#request">Запросить расчёт →</a></div>
+      <div class="col"><span class="k">Застройщикам</span><h3>Одна партия на&nbsp;объект</h3><ul><li>Резерв плитки одного тона и калибра</li><li>Поставка по графику стройки</li><li>Оптовые поставки любых объёмов</li></ul><a class="link-ar" href="#request">Обсудить объект →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. FACTS ============ -->
+<section class="facts" id="facts">
+  <div class="wrap grid">
+    <div class="stick">
+      <div><p class="eyebrow">Факты о компании</p><h2 style="margin-top:14px">Цифры, которые можно проверить на&nbsp;складе</h2></div>
+      <div class="ph" id="factPh">
+        <i class="on" data-tile="hana-100x100"></i><i data-tile="deylan-100x100"></i><i data-tile="shiba-greige-45x45"></i><i data-tile="jambo-20x120"></i><i data-tile="tiana-60x120"></i><i data-tile="marmolina-60x120"></i>
+        <span class="cap" id="factCap">Hana · 100×100</span>
+      </div>
+    </div>
+    <ol class="flist" id="flist">
+      <li class="fact on" data-cap="Hana · 100×100"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M4 40 V18 L22 6 L40 18 V40 Z"/><path d="M12 40 V26 H32 V40"/><path d="M12 32 H32"/></svg><div><b>70 000 м²</b><p>керамогранита в наличии на складе в Оренбурге.</p></div></li>
+      <li class="fact" data-cap="Deylan · 100×100"><svg viewBox="0 0 44 44" aria-hidden="true"><rect x="5" y="5" width="15" height="15"/><rect x="24" y="5" width="15" height="15"/><rect x="5" y="24" width="15" height="15"/><rect x="24" y="24" width="15" height="15"/></svg><div><b>55</b><p>коллекций: матовые, глянцевые и карвинг-поверхности.</p></div></li>
+      <li class="fact" data-cap="Shiba greige · 45×45"><svg viewBox="0 0 44 44" aria-hidden="true"><rect x="4" y="30" width="10" height="10"/><rect x="17" y="22" width="12" height="18"/><rect x="32" y="10" width="8" height="30"/></svg><div><b>6</b><p>форматов: 45×45, 50×50, 60×60, 60×120, 100×100 и 20×120 см.</p></div></li>
+      <li class="fact" data-cap="Jambo · 20×120 · 20 мм"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M4 30 L22 22 L40 30 L22 38 Z"/><path d="M4 30 v4 L22 42 L40 34 v-4"/></svg><div><b>20 мм</b><p>уличный керамогранит для террас, бассейнов, дворов и заездов.</p></div></li>
+      <li class="fact" data-cap="Tiana · 60×120"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M6 38 V16 L16 10 V38"/><path d="M28 38 V16 L38 10 V38"/><path d="M2 38 H42"/></svg><div><b>2</b><p>склада: розница и шоурум в Оренбурге, дистрибуция из Москвы.</p></div></li>
+            <li class="fact" data-cap="Marmolina · 60×120"><svg viewBox="0 0 44 44" aria-hidden="true"><path d="M6 32 L22 40 L38 32 V14 L22 6 L6 14 Z"/><path d="M6 14 L22 22 L38 14 M22 22 V40"/></svg><div><b>3D</b><p>визуализация ванной с точной раскладкой до покупки.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 10. SUBSCRIBE ============ -->
+<section class="sub" id="subscribe">
+  <div class="mosaic" aria-hidden="true"><i data-tile="rio-white-60x60"></i><i data-tile="magma-60x60"></i><i data-tile="vetros-60x60"></i><i data-tile="zebra-60x60"></i><i data-tile="doha-60x60"></i><i data-tile="pandora-60x60"></i><i data-tile="melika-60x60"></i><i data-tile="toledo-gray-60x60"></i><i data-tile="chenar-60x60"></i></div>
+  <div class="wrap grid">
+    <div>
+      <p class="eyebrow">Только для подписчиков</p>
+      <h2>Подпишитесь на&nbsp;эксклюзивные предложения</h2>
+      <p class="lead">Распродажи остатков партий и новые коллекции раньше, чем на витрине. Не чаще раза в неделю.</p>
+    </div>
+    <form class="form" data-form>
+      <div class="hide-on-sent" style="display:grid;gap:14px">
+        <div class="field"><label for="s-contact">Телефон или e-mail</label><input id="s-contact" name="contact" required placeholder="Куда присылать"></div>
+        <div class="field"><label>Удобнее в</label>
+          <div class="roles">
+            <label><input type="radio" name="ch" id="ch-1" checked><span>Telegram</span></label>
+            <label><input type="radio" name="ch" id="ch-2"><span>WhatsApp</span></label>
+            <label><input type="radio" name="ch" id="ch-3"><span>E-mail</span></label>
+          </div>
+        </div>
+        <button class="btn btn--light" type="submit">Подписаться <span class="ar">→</span></button>
+        <p class="fine">Отписаться можно в один клик в любом письме.</p>
+      </div>
+      <p class="ok">Готово. Первое предложение придёт на этой неделе.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ 11. MENU + CONTACTS ============ -->
+<footer class="foot" id="contacts">
+  <div class="wrap">
+    <div class="big" data-biglogo><img src="https://static.tildacdn.com/tild6535-3361-4265-a539-386434396134/___1-06_1.png" alt="КерамаХолл"><span class="wm">КерамаХолл</span></div>
+    <div class="cols">
+      <div><h4>Главная</h4><ul>
+        <li><a href="#production">Производство</a></li><li><a href="#home3d">Плитка в доме</a></li><li><a href="#film">Дизайны</a></li><li><a href="#about">О компании</a></li><li><a href="#facts">Факты о компании</a></li>
+      </ul></div>
+      <div><h4>Каталог</h4><ul>
+        <li><a href="#film">Керамогранит</a></li><li><a href="#film">Сантехника</a></li><li><a href="#film">Акции</a></li>
+      </ul>
+      <h4 style="margin-top:28px">Доставка</h4><p class="addr">Челябинск, Орск, Уфа, Минск</p></div>
+      <div><h4>Партнёрам</h4><ul>
+        <li><a href="#partners">Дилерам и дистрибьюторам</a></li><li><a href="#pro">Дизайнерам</a></li><li><a href="#pro">Строителям и застройщикам</a></li><li><a href="#partners">Вход в кабинет дилера</a></li>
+      </ul></div>
+      <div><h4>Контакты</h4>
+        <p class="addr"><b>Оренбург · шоурум и склад</b>ул. Автоматики, 10А</p>
+        <span class="phone">+7 903 392-25-00</span>
+        <p class="addr">222.500@mail.ru</p>
+        <p class="addr" style="margin-top:14px"><b>Москва · склад</b>отгрузка дилерам и на объекты</p>
+      </div>
+    </div>
+    <p class="credits">Концепт для портфолио. <a href="case/">Читать UX-кейс →</a></p>
+    <p class="credits">Фотографии: <a href="https://unsplash.com/@imagine_reality_studio" target="_blank" rel="noopener">Imagine Reality Studio</a>, <a href="https://unsplash.com/@eladepure" target="_blank" rel="noopener">Ela De Pure</a>, <a href="https://unsplash.com/@itsbilalmn" target="_blank" rel="noopener">Bilal Mansuri</a>, <a href="https://unsplash.com/@petepxl" target="_blank" rel="noopener">Peter Muniz</a>, <a href="https://unsplash.com/@adryan_studio" target="_blank" rel="noopener">Puscas Adryan</a>, <a href="https://unsplash.com/@brianwangenheim" target="_blank" rel="noopener">Brian Wangenheim</a>, <a href="https://unsplash.com/@sentimaprinco" target="_blank" rel="noopener">Alena Lavrova</a>, <a href="https://unsplash.com/@cptlajmenko" target="_blank" rel="noopener">Artur Solarz</a>, <a href="https://unsplash.com/@mitchwh" target="_blank" rel="noopener">Mitch Harris</a>, <a href="https://unsplash.com/@augustinewong" target="_blank" rel="noopener">Augustine Wong</a>, <a href="https://unsplash.com/@bsteczdesigns_" target="_blank" rel="noopener">Brandon Stecz</a>, <a href="https://unsplash.com/@nicknight" target="_blank" rel="noopener">Nick Night</a>, <a href="https://unsplash.com/@colinwatts" target="_blank" rel="noopener">Colin Watts</a>, <a href="https://unsplash.com/@pandavtank" target="_blank" rel="noopener">Pandav Tank</a>, <a href="https://unsplash.com/@enginakyurt" target="_blank" rel="noopener">engin akyurt</a>, <a href="https://unsplash.com/@pawel_czerwinski" target="_blank" rel="noopener">Pawel Czerwinski</a> — <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash</a>.</p>
+    <div class="bottom"><span>© КерамаХолл, 2026</span><span>Политика конфиденциальности</span></div>
+  </div>
+</footer>
+
+<!-- ============ EXIT POPUP ============ -->
+<div class="pop" id="pop" hidden role="dialog" aria-modal="true" aria-labelledby="popTitle">
+  <div class="pop__box">
+    <div class="pop__ph" data-tile="marbella-pearl-60x120"></div>
+    <div class="pop__tx">
+      <p class="eyebrow">Пока вы не ушли</p>
+      <h3 id="popTitle">Подберём 3 варианта плитки под ваш проект</h3>
+      <p>Оставьте телефон. Менеджер пришлёт подборку из наличия с ценами.</p>
+      <form class="form" data-form>
+        <div class="hide-on-sent" style="display:grid;gap:14px">
+          <div class="field"><label for="p-phone">Телефон</label><input id="p-phone" type="tel" required placeholder="+7 ___ ___-__-__"></div>
+          <button class="btn btn--solid" type="submit">Получить подборку <span class="ar">→</span></button>
+        </div>
+        <p class="ok">Спасибо! Скоро пришлём подборку.</p>
+      </form>
+    </div>
+    <button class="pop__x" type="button" id="popX" aria-label="Закрыть">×</button>
+  </div>
+</div>
+
+
+<script>
+(function(){
+"use strict";
+/* Фото-фактуры: Unsplash (свободная лицензия), авторы перечислены в подвале.
+   Картинка подбирается по тону коллекции; под ней остаётся градиент-заглушка. */
+const PH = (id,w) => "https://images.unsplash.com/"+id+"?auto=format&fit=crop&w="+(w||900)+"&q=70";
+const TEX = {
+  black:  "photo-1747696766706-5485b39bf358", /* Alena Lavrova — чёрный мрамор */
+  gray:   "photo-1617713965103-9fda56c89fad", /* Artur Solarz — светлый бетон */
+  grayM:  "photo-1515895309288-a3815ab7cf81", /* Mitch Harris — серый мрамор */
+  white:  "photo-1566041510394-cf7c8fe21800", /* Augustine Wong — белый мрамор */
+  white2: "photo-1640280882429-204f63d777e7", /* Brandon Stecz — мрамор */
+  trav:   "photo-1708251089806-6907bdcc7bee", /* Nick Night — травертин */
+  beige:  "photo-1780253460324-9d49f88c74fc", /* Colin Watts — бежевая плитка */
+  wood:   "photo-1611600700192-d87eaeed4f81", /* Pandav Tank — дерево */
+  wood2:  "photo-1644931551533-02906718127f", /* engin akyurt — дерево */
+  water:  "photo-1595878715977-2e8f8df18ea8"  /* Pawel Czerwinski — голубой «оникс» */
+};
+function texFor(s){
+  if (/jambo/.test(s)) return TEX.wood2;
+  if (/alder/.test(s)) return TEX.wood;
+  if (/black|dark|magma|enrique|zebra/.test(s)) return TEX.black;
+  if (/water|blue/.test(s)) return TEX.water;
+  if (/toledo|vetros|doha|pandora/.test(s)) return TEX.gray;
+  if (/gray|grey|greige|melika|stone/.test(s)) return TEX.grayM;
+  if (/marbella|hana|rozalin|marmolina/.test(s)) return TEX.white;
+  if (/white|pearl|light|rio|deylan|tiana/.test(s)) return TEX.white2;
+  if (/karizma|chenar/.test(s)) return TEX.trav;
+  return TEX.beige;
+}
+const TILE = s => PH(texFor(s), 900);
+function fbColor(s){
+  if (/black|dark|magma|enrique/.test(s)) return "#2c2b29";
+  if (/gray|grey|greige|toledo|stone|samanta|silva/.test(s)) return "#a9a7a1";
+  if (/white|pearl|light|marbella|rio|helena|deylan/.test(s)) return "#e6e2da";
+  if (/brown|biege|bege|alder|sparta|karizma|chenar|villa|jambo/.test(s)) return "#a88d70";
+  if (/water|blue/.test(s)) return "#9fb3b5";
+  return "#cbc3b6";
+}
+function fbGrad(s){ const c=fbColor(s); return "linear-gradient(135deg,"+c+" 0%,"+shade(c,-14)+" 100%)"; }
+function shade(hex,p){ const n=parseInt(hex.slice(1),16); let r=n>>16,g=n>>8&255,b=n&255; const f=v=>Math.max(0,Math.min(255,Math.round(v+v*p/100))); return "rgb("+f(r)+","+f(g)+","+f(b)+")"; }
+
+/* all simple tile surfaces: image on top, gradient fallback underneath */
+function paintTiles(root){
+  (root||document).querySelectorAll("[data-tile]").forEach(el=>{
+    const s=el.dataset.tile;
+    el.style.backgroundImage = 'url("'+TILE(s)+'"), '+fbGrad(s);
+    el.style.backgroundSize = "cover, cover";
+    el.style.backgroundPosition = "center, center";
+  });
+}
+
+/* repeated tile texture with grout joints (3D planes, terrace) */
+function texture(el,slug,tw,th,pos){
+  const seam="rgba(25,22,20,.30)";
+  el.style.backgroundColor = fbColor(slug);
+  /* швы идут сеткой формата плитки, а фото камня лежит одним крупным полотном:
+     рисунок не дробится на повторяющиеся квадраты и читается как настоящий камень */
+  const big=Math.max(1400,tw*10);
+  el.style.backgroundImage = "linear-gradient(to right,"+seam+" 0 2px,transparent 2px),linear-gradient(to bottom,"+seam+" 0 2px,transparent 2px),url(\""+PH(texFor(slug),1800)+"\")";
+  el.style.backgroundSize = tw+"px "+th+"px, "+tw+"px "+th+"px, "+big+"px auto";
+  const p0=pos||"0 0"; el.style.backgroundPosition = p0+", "+p0+", "+p0;
+  el.style.backgroundRepeat = "repeat";
+}
+
+/* ---------- build: production belt ---------- */
+const beltTiles=["rio-white-60x60","modena-60x120","doha-60x60","enrique-black-60x120","valeriya-light-gray-60x60","hana-60x120","magma-60x60","marbella-pearl-60x120","vetros-60x60","karizma-60x120","toledo-gray-60x60","water-fall-60x120","pandora-60x60","aron-60x120","melika-60x60","tiana-60x120","chenar-60x60","concept-dark-60x120"];
+const track=document.getElementById("beltTrack");
+for(let i=0;i<beltTiles.length;i+=2){
+  const col=document.createElement("div"); col.className="belt-row";
+  [beltTiles[i],beltTiles[i+1]].forEach(s=>{ if(!s) return; const d=document.createElement("div"); d.className="slab"+(/60x120/.test(s)?" long":""); d.dataset.tile=s; col.appendChild(d); });
+  track.appendChild(col);
+}
+
+/* ---------- build: terrace + planks ---------- */
+texture(document.getElementById("terrace"),"jambo-20x120",44,264);
+const planks=document.getElementById("planks");
+const plankSlugs=["alder-biege-20x120","jambo-20x120"];
+const PN=9;
+for(let i=0;i<PN;i++){
+  const p=document.createElement("div");
+  p.className="plank"+(i===4?" hero":"");
+  const s=plankSlugs[i%2===0?0:1];
+  p.dataset.tile = i===4 ? "alder-biege-20x120" : s;
+  if(i===3||i===5){ const t=document.createElement("span"); t.className="plank-tag"; t.textContent = i===3?"Jambo":"Alder biege"; p.appendChild(t); }
+  planks.appendChild(p);
+}
+
+paintTiles();
+document.querySelectorAll("[data-photo]").forEach(el=>{ el.style.backgroundImage='url("'+el.dataset.photo+'"), '+el.style.backgroundImage; el.style.backgroundSize="cover, cover, cover"; });
+document.querySelectorAll(".logo img, [data-biglogo] img").forEach(img=>{
+  const host=img.closest(".logo,[data-biglogo]");
+  const fail=()=>host.classList.add("noimg");
+  if(img.complete && !img.naturalWidth) fail(); else img.addEventListener("error",fail);
+});
+
+/* ---------- build: 3D house ---------- */
+const world=document.getElementById("world");
+const H=640, FLOOR=250, CEIL=FLOOR-H, MID=(FLOOR+CEIL)/2, SEG=400;
+const bathLayers=[];
+const BATH_TILES=[["hana-60x120","Hana","60×120"],["water-fall-60x120","Water fall","60×120"],["tiana-60x120","Tiana","60×120"],["enrique-black-60x120","Enrique black","60×120"]];
+function plane(o){
+  const d=document.createElement("div");
+  d.className="pl "+(o.cls||"");
+  d.style.width=o.w+"px"; d.style.height=o.h+"px";
+  d.style.marginLeft=(-o.w/2)+"px"; d.style.marginTop=(-o.h/2)+"px";
+  d.style.transform="translate3d("+(o.x||0)+"px,"+(o.y||0)+"px,"+(o.z||0)+"px) rotateX("+(o.rx||0)+"deg) rotateY("+(o.ry||0)+"deg)";
+  world.appendChild(d); return d;
+}
+function floorRun(w,z0,z1,slug,tw,th,cls){
+  for(let s=0;s<z0-z1;s+=SEG){
+    const len=Math.min(SEG,z0-z1-s), zfar=z0-s-len;
+    const p=plane({w:w,h:len,y:FLOOR,z:zfar+len/2,rx:90,cls:cls||""});
+    if(slug) texture(p,slug,tw,th,(w/2)+"px "+(-zfar)+"px");
+  }
+}
+function ceilRun(w,z0,z1){ for(let s=0;s<z0-z1;s+=SEG){ const len=Math.min(SEG,z0-z1-s); plane({w:w,h:len,y:CEIL,z:z0-s-len/2,rx:90,cls:"ceil"}); } }
+function wallRun(side,w,z0,z1,cls,tiled){
+  for(let s=0;s<z0-z1;s+=SEG){
+    const len=Math.min(SEG,z0-z1-s), zc=z0-s-len/2;
+    const p=plane({w:len,h:H,x:side*w/2,y:MID,z:zc,ry:side<0?90:-90,cls:cls});
+    if(tiled){
+      const znear=z0-s, zfar=z0-s-len;
+      BATH_TILES.forEach((t,i)=>{ const l=document.createElement("div"); l.className="layer"+(i===0?" on":""); texture(l,t[0],120,240,(side<0? znear : -zfar)+"px "+(H%240)+"px"); p.appendChild(l); bathLayers.push(l); });
+    }
+  }
+}
+function crossWall(z,w,door,cls,tiled){
+  const side=(w-door)/2; if(side<=0) return;
+  [-1,1].forEach(k=>{
+    const p=plane({w:side,h:H,x:k*(door/2+side/2),y:MID,z:z,cls:cls});
+    if(tiled){ BATH_TILES.forEach((t,i)=>{ const l=document.createElement("div"); l.className="layer"+(i===0?" on":""); texture(l,t[0],120,240); p.appendChild(l); bathLayers.push(l); }); }
+  });
+}
+function box(cx,cy,cz,w,h,d,cls,clsSide){
+  plane({w:w,h:h,x:cx,y:cy,z:cz+d/2,cls:cls});
+  plane({w:w,h:h,x:cx,y:cy,z:cz-d/2,cls:cls});
+  plane({w:d,h:h,x:cx-w/2,y:cy,z:cz,ry:90,cls:clsSide||cls});
+  plane({w:d,h:h,x:cx+w/2,y:cy,z:cz,ry:-90,cls:clsSide||cls});
+  plane({w:w,h:d,x:cx,y:cy-h/2,z:cz,rx:90,cls:cls});
+}
+// exterior: porch in 20 mm + facade with door
+floorRun(2600,1400,0,"jambo-20x120",44,264);
+[-1,1].forEach(k=>plane({w:1080,h:1400,x:k*(220+540),y:FLOOR-700,z:0,cls:"facade"}));
+plane({w:440,h:760,x:0,y:CEIL-380,z:0,cls:"facade"});
+plane({w:470,h:16,x:0,y:CEIL-8,z:2,cls:"facade trim"});
+plane({w:120,h:200,x:-520,y:CEIL+140,z:2,cls:"glow"});
+plane({w:120,h:200,x:520,y:CEIL+140,z:2,cls:"glow"});
+// corridor
+const C={w:440,z0:0,z1:-1400};
+floorRun(C.w,C.z0,C.z1,"modena-60x120",120,240);
+ceilRun(C.w,C.z0,C.z1);
+wallRun(-1,C.w,C.z0,C.z1,"plaster dim"); wallRun(1,C.w,C.z0,C.z1,"plaster");
+[-700,-1200].forEach(z=>plane({w:40,h:40,x:0,y:CEIL+1,z:z,rx:90,cls:"lamp"}));
+// living
+const L={w:1400,z0:-1400,z1:-2900};
+crossWall(L.z0,L.w,C.w,"plaster");
+floorRun(L.w,L.z0,L.z1,"marbella-pearl-60x120",120,240);
+ceilRun(L.w,L.z0,L.z1);
+wallRun(-1,L.w,L.z0,L.z1,"plaster dim"); wallRun(1,L.w,L.z0,L.z1,"plaster");
+plane({w:380,h:420,x:-L.w/2+2,y:MID-20,z:-1900,ry:90,cls:"glow"});
+plane({w:380,h:420,x:-L.w/2+2,y:MID-20,z:-2400,ry:90,cls:"glow"});
+plane({w:700,h:900,x:-380,y:FLOOR-1,z:-2150,rx:90,cls:"pool"});
+plane({w:520,h:760,x:240,y:FLOOR-2,z:-2250,rx:90,cls:"rug"});
+box(560,FLOOR-55,-2250,170,110,620,"fabric","fabric d");
+box(640,FLOOR-130,-2250,40,150,620,"fabric d");
+box(240,FLOOR-30,-2250,180,60,300,"wood");
+box(-600,FLOOR-180,-2700,14,360,14,"wood");
+plane({w:70,h:70,x:-600,y:FLOOR-370,z:-2700,cls:"lamp"});
+crossWall(L.z1,L.w,440,"plaster");
+plane({w:440,h:H-520,x:0,y:CEIL+(H-520)/2,z:L.z1,cls:"plaster"});
+// bathroom (camera stops here, wall tile switches)
+const B={w:800,z0:-2900,z1:-3700};
+floorRun(B.w,B.z0,B.z1,"enrique-black-60x120",120,240);
+ceilRun(B.w,B.z0,B.z1);
+wallRun(-1,B.w,B.z0,B.z1,"",true); wallRun(1,B.w,B.z0,B.z1,"",true);
+const back=plane({w:B.w,h:H,x:0,y:MID,z:B.z1,cls:""});
+BATH_TILES.forEach((t,i)=>{ const l=document.createElement("div"); l.className="layer"+(i===0?" on":""); texture(l,t[0],120,240,(B.w/2)+"px "+(H%240)+"px"); back.appendChild(l); bathLayers.push(l); });
+plane({w:280,h:200,x:200,y:FLOOR-370,z:B.z1+3,cls:"mirror"});
+box(200,FLOOR-150,-3630,240,26,120,"white");
+box(200,FLOOR-68,-3640,240,136,100,"wood");
+box(-180,FLOOR-62,-3480,420,124,210,"white");
+plane({w:60,h:60,x:0,y:CEIL+1,z:-3300,rx:90,cls:"lamp"});
+
+function setBathTile(i){ const n=BATH_TILES.length; bathLayers.forEach((l,k)=>l.classList.toggle("on",k%n===i)); }
+
+/* scale the 3D world to the viewport */
+const scaleEl=document.getElementById("scale3d"), camEl=document.getElementById("cam");
+function fit3d(){ const s=Math.max(.55,Math.min(1.15,window.innerWidth/1200)); scaleEl.style.transform="scale3d("+s+","+s+",1)"; }
+fit3d(); window.addEventListener("resize",fit3d);
+const T0=-260, T1=3150;
+function setCam(t){ camEl.style.transform="translate3d(0,0,"+t+"px)"; }
+setCam(T0);
+
+/* house UI */
+const roomName=document.getElementById("roomName"), roomTile=document.getElementById("roomTile"), tileDots=document.getElementById("tileDots");
+const mgCards=[...document.querySelectorAll(".mg-card")];
+let lastRoom="", lastBath=-1, lastMg=-2;
+function houseUI(p){
+  const camP=Math.min(1,p/.66), t=T0+(T1-T0)*ease(camP);
+  setCam(t);
+  let room,tile;
+  if(t<120){room="Вход";tile='Jambo <small>20×120 · 20 мм</small>';}
+  else if(t<1500){room="Коридор";tile='Modena <small>60×120</small>';}
+  else if(t<2780){room="Гостиная";tile='Marbella Pearl <small>60×120</small>';}
+  else {room="Ванная";tile=null;}
+  let bi=-1;
+  if(room==="Ванная"){ bi=Math.min(3,Math.max(0,Math.floor((p-.7)/.3*4))); if(p<.7) bi=0; }
+  if(room!==lastRoom || bi!==lastBath){
+    roomName.textContent=room;
+    if(bi>=0){ const bt=BATH_TILES[bi]; roomTile.innerHTML=bt[1]+' <small>'+bt[2]+' · на стенах</small>'; tileDots.hidden=false; [...tileDots.children].forEach((d,k)=>d.classList.toggle("on",k===bi)); setBathTile(bi); }
+    else { roomTile.innerHTML=tile; tileDots.hidden=true; }
+    lastRoom=room; lastBath=bi;
+  }
+  const mg = p<.06?-1 : p<.36?0 : p<.68?1 : 2;
+  if(mg!==lastMg){ mgCards.forEach((c,k)=>c.classList.toggle("on",k===mg)); lastMg=mg; }
+}
+function ease(x){ return x<.5 ? 2*x*x : 1-Math.pow(-2*x+2,2)/2; }
+
+/* ---------- motion: own scroll engine (sticky pins + progress) ---------- */
+const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const motion=!reduce;
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const lerp=(a,b,t)=>a+(b-a)*t;
+const eOut=t=>1-Math.pow(1-t,3);
+const filmFrames=[...document.querySelectorAll("#film .frame")];
+const filmBar=document.getElementById("filmBar"), filmTc=document.getElementById("filmTc");
+document.documentElement.classList.add("js");
+
+function pinProgress(el){
+  const r=el.getBoundingClientRect(), len=r.height-window.innerHeight;
+  return len>0 ? clamp(-r.top/len,0,1) : 0;
+}
+function visible(el){ const r=el.getBoundingClientRect(); return r.bottom>-50 && r.top<window.innerHeight+50; }
+
+/* 1. production */
+const prodPin=document.getElementById("production");
+const plates=[...document.querySelectorAll(".plate")], prodCopy=document.querySelector(".prod-copy"), kiln=document.querySelector(".kiln");
+let beltW=0; const measureBelt=()=>{ beltW=track.scrollWidth; };
+function production(p,time){
+  const amb=Math.sin(time/1400)*40;
+  track.style.transform="translate3d("+(-p*beltW*.42+amb)+"px,0,0)";
+  plates.forEach((pl,i)=>{ const t=eOut(seg(p,.1+i*.1,.28+i*.1)); pl.style.opacity=t; pl.style.transform="translateY("+(1-t)*50+"px)"; });
+  const c=seg(p,.55,1); prodCopy.style.transform="translateY("+(-30*c)+"px)"; prodCopy.style.opacity=1-.15*c;
+  kiln.style.transform="scale("+(1+.15*p)+")";
+}
+
+/* 2. street */
+const streetPin=document.getElementById("street");
+const pl=[...planks.children], hero=pl[4], others=pl.filter((_,i)=>i!==4);
+const tags=[...document.querySelectorAll(".plank-tag")], streetCards=document.getElementById("streetCards"), streetCopy=document.querySelector(".street-copy");
+function street(p){
+  const vw=window.innerWidth, vh=window.innerHeight;
+  const a=eOut(seg(p,.0,.38));                       // slab lifts out of the terrace and flies to centre
+  const x=lerp(-vw*.18,0,a), y=lerp(vh*.42,0,a), rx=lerp(72,0,a), rz=lerp(-8,0,a), sc=lerp(.55,1,a);
+  hero.style.transform="perspective(900px) translate3d("+x+"px,"+y+"px,0) rotateX("+rx+"deg) rotate("+rz+"deg) scale("+sc+")";
+  const pw=hero.offsetWidth||80, gap=Math.max(8,pw*.14);
+  const b=seg(p,.4,.75);                               // and multiplies into the line
+  others.forEach((o,i)=>{ const idx=i<4?i:i+1, d=Math.abs(idx-4); const t=eOut(clamp((b-(d-1)*.08)/.7,0,1));
+    o.style.opacity=b>0?1:0; o.style.transform="translate3d("+((idx-4)*(pw+gap)*t)+"px,0,0) rotate("+((idx-4)*.6*t)+"deg)"; });
+  const c=eOut(seg(p,.74,.88));
+  tags.forEach(tg=>tg.style.opacity=c);
+  streetCards.style.opacity=c; streetCards.style.transform="translateY("+(1-c)*30+"px)"; streetCards.style.pointerEvents=c>.5?"auto":"none";
+  const dim=seg(p,.08,.3), back=seg(p,.8,.92); streetCopy.style.opacity=1-.75*dim+.75*back;
+}
+
+/* 3. house */
+const housePin=document.getElementById("home3d");
+
+/* 5. film */
+const filmPin=document.getElementById("film");
+const FN=filmFrames.length, STEP=.9, U=(FN-1)*STEP+.6;
+const bigWord=document.querySelector(".final .big");
+function film(p){
+  const t=p*U;
+  filmFrames.forEach((f,i)=>{
+    const img=f.querySelector(".ph i");
+    if(img){ const l=clamp((t-i*STEP+.25)/1.1,0,1); img.style.transform="translate3d("+(-2+4*l)+"%,0,0) scale("+(1.12-.12*l)+")"; }
+    if(i>0){ const w=clamp((t-(i*STEP-.25))/.45,0,1), e=w<.5?2*w*w:1-Math.pow(-2*w+2,2)/2; f.style.clipPath="inset(0% 0% 0% "+((1-e)*100)+"%)"; }
+  });
+  const w2=eOut(clamp((t-((FN-1)*STEP-.1))/.5,0,1));
+  bigWord.style.opacity=w2; bigWord.style.transform="scale("+(1.25-.25*w2)+")";
+  filmBar.style.width=(p*100)+"%";
+  filmTc.textContent="00:"+String(Math.round(p*24)).padStart(2,"0");
+}
+
+if(!motion){
+  document.documentElement.classList.add("static");
+  houseUI(.2); mgCards[0].classList.add("on");
+  others.forEach(o=>o.style.display="none");
+  streetCards.style.opacity=1;
+} else {
+  measureBelt(); window.addEventListener("resize",measureBelt);
+  let ticking=false;
+  function frame(time){
+    if(visible(prodPin)) production(pinProgress(prodPin),time||0);
+    if(visible(streetPin)) street(pinProgress(streetPin));
+    if(visible(housePin)) houseUI(pinProgress(housePin));
+    if(visible(filmPin)) film(pinProgress(filmPin));
+    hdrState();
+  }
+  function loop(time){ frame(time); requestAnimationFrame(loop); }
+  requestAnimationFrame(loop);
+  street(0); film(0); houseUI(0);
+  // reveal headings
+  document.querySelectorAll(".cta1 h2, .partners h2, .pro h2, .facts h2, .sub h2, .about h2").forEach(el=>el.classList.add("rv"));
+  if("IntersectionObserver" in window){
+    const rio=new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); rio.unobserve(en.target); } }),{rootMargin:"0px 0px -10% 0px"});
+    document.querySelectorAll(".rv").forEach(el=>rio.observe(el));
+  } else document.querySelectorAll(".rv").forEach(el=>el.classList.add("in"));
+}
+
+/* ---------- header ---------- */
+const hdr=document.getElementById("hdr");
+const darkIds=["production","street","film"];
+function hdrState(){
+  const y=hdr.offsetHeight/2; let overDark=false;
+  for(const id of darkIds){ const r=document.getElementById(id).getBoundingClientRect(); if(r.top<=y && r.bottom>=y){overDark=true;break;} }
+  hdr.classList.toggle("solid",!overDark);
+}
+window.addEventListener("scroll",hdrState,{passive:true}); hdrState();
+
+/* anchors with pins + Lenis */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener("click",e=>{
+    const id=a.getAttribute("href"); if(id.length<2) return;
+    const t=document.querySelector(id); if(!t) return;
+    e.preventDefault(); closeMnav();
+    if(window.__lenis) window.__lenis.scrollTo(t,{offset:0,duration:1.4}); else t.scrollIntoView({behavior:reduce?"auto":"smooth"});
+  });
+});
+
+/* mobile nav */
+const burger=document.getElementById("burger"), mnav=document.getElementById("mnav");
+function closeMnav(){ mnav.hidden=true; burger.setAttribute("aria-expanded","false"); hdr.style.color=""; hdr.classList.remove("menu-open"); }
+burger.addEventListener("click",()=>{ const open=mnav.hidden; mnav.hidden=!open; burger.setAttribute("aria-expanded",String(open)); hdr.style.color=open?"var(--ink)":""; hdr.classList.toggle("menu-open",open); });
+
+/* city switch */
+const cityLine=document.getElementById("cityLine");
+document.querySelectorAll("[data-city]").forEach(b=>b.addEventListener("click",()=>{
+  const c=b.dataset.city;
+  document.querySelectorAll("[data-city]").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.city===c)));
+  cityLine.textContent = c==="msk" ? "Москва · склад и дилерская дистрибуция" : "Оренбург · шоурум на ул. Автоматики, 10А";
+}));
+
+/* forms (prototype: no real submission) */
+document.querySelectorAll("[data-form]").forEach(f=>f.addEventListener("submit",e=>{ e.preventDefault(); f.classList.add("sent"); }));
+
+/* dealer calculator */
+const rrp=document.getElementById("rrp"), pickup=document.getElementById("pickup");
+const fmt=n=>Math.round(n).toLocaleString("ru-RU")+" ₽";
+function calc(){
+  const v=Math.max(0,parseFloat(rrp.value)||0), d=pickup.checked?.40:.35;
+  document.getElementById("rrpOut").textContent=fmt(v);
+  document.getElementById("yourPrice").textContent=fmt(v*(1-d));
+  document.getElementById("discLabel").innerHTML="Ваша цена<br>−"+Math.round(d*100)+" %"+(pickup.checked?" · самовывоз":"");
+}
+rrp.addEventListener("input",calc); pickup.addEventListener("change",calc); calc();
+
+/* about slider: auto, arrows, dots, swipe — not pinned */
+const slides=document.getElementById("slides"), n=slides.children.length, dotsEl=document.getElementById("sdots");
+let si=0, timer=null;
+for(let i=0;i<n;i++){ const b=document.createElement("button"); b.type="button"; b.setAttribute("aria-label","Слайд "+(i+1)); b.addEventListener("click",()=>go(i,true)); dotsEl.appendChild(b); }
+function go(i,user){ si=(i+n)%n; slides.style.transform="translateX("+(-si*100)+"%)"; [...dotsEl.children].forEach((d,k)=>d.classList.toggle("on",k===si)); if(user) restart(); }
+function restart(){ clearInterval(timer); if(!reduce) timer=setInterval(()=>go(si+1),4500); }
+document.getElementById("sPrev").addEventListener("click",()=>go(si-1,true));
+document.getElementById("sNext").addEventListener("click",()=>go(si+1,true));
+let sx=null; slides.addEventListener("pointerdown",e=>{sx=e.clientX;}); slides.addEventListener("pointerup",e=>{ if(sx===null) return; const dx=e.clientX-sx; if(Math.abs(dx)>40) go(si+(dx<0?1:-1),true); sx=null; });
+go(0); restart();
+
+/* facts: active fact swaps the sticky photo */
+const facts=[...document.querySelectorAll(".fact")], factImgs=[...document.querySelectorAll("#factPh i")], factCap=document.getElementById("factCap");
+if("IntersectionObserver" in window){
+  const io=new IntersectionObserver(es=>{ es.forEach(en=>{ if(en.isIntersecting){ const i=facts.indexOf(en.target); facts.forEach((f,k)=>f.classList.toggle("on",k===i)); factImgs.forEach((im,k)=>im.classList.toggle("on",k===i)); factCap.textContent=en.target.dataset.cap; } }); },{rootMargin:"-45% 0px -45% 0px"});
+  facts.forEach(f=>io.observe(f));
+}
+
+/* exit-intent popup (desktop) + end of page (mobile), once per visit */
+const pop=document.getElementById("pop"); let popShown=false;
+function showPop(){ if(popShown) return; popShown=true; pop.hidden=false; if(window.__lenis) window.__lenis.stop(); }
+function hidePop(){ pop.hidden=true; if(window.__lenis) window.__lenis.start(); }
+document.getElementById("popX").addEventListener("click",hidePop);
+pop.addEventListener("click",e=>{ if(e.target===pop) hidePop(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape" && !pop.hidden) hidePop(); });
+document.addEventListener("mouseout",e=>{ if(!e.relatedTarget && e.clientY<8 && window.scrollY>window.innerHeight) showPop(); });
+if("IntersectionObserver" in window){
+  new IntersectionObserver(es=>{ if(es[0].isIntersecting) setTimeout(showPop,1200); },{threshold:.6}).observe(document.querySelector(".foot .bottom"));
+}
+
+})();
+</script>
+</body>
+</html>

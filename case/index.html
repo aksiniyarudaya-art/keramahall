@@ -1,0 +1,828 @@
+<title>Кейс КерамаХолл</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: кейс-журнал в языке самого сайта. Главы с крупными номерами, липкое оглавление, исследование на светлом камне, решения на цветных полосах в тонах коллекций; графики и таблицы как инструменты, а не украшение. */
+:root{
+  --stone:#F2F0EB;
+  --paper:#FBFAF7;
+  --ink:#1E1D1B;
+  --ink-2:#56524B;
+  --ink-3:#8A857C;
+  --line:#DCD7CC;
+  --champagne:#9A7D52;
+  --s1:#C4622D;          /* серия 1: главная КерамаХолл / ключевое действие */
+  --s2:#2F6FB3;          /* серия 2: типичный каталог / первый контакт */
+  --sev1:#6E8B5A; --sev2:#B8892B; --sev3:#C4622D; --sev4:#A33B2E;
+  --night:#131514;  --on-night:#ECEBE4; --on-night-2:#A6AAA5;
+  --kiln:#D9773E;   --on-kiln:#FFF4EA;
+  --water:#C9D6D5;  --water-ink:#17302F; --water-ink-2:#3F5958;
+  --trav:#E4D8C6;   --trav-ink:#2B241B; --trav-ink-2:#6B5E4C;
+  --f-display:"Jost","Futura","Century Gothic","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Manrope","Helvetica Neue",Arial,sans-serif;
+  --gut:clamp(16px,4vw,56px);
+  --maxw:1200px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --stone:#171817;--paper:#1F211F;--ink:#ECEAE4;--ink-2:#B9B5AC;--ink-3:#8A867E;--line:#34362F;--champagne:#C8AC80;
+  --s1:#D9773E;--s2:#4F8CD6;--sev1:#8FB27A;--sev2:#D9A845;--sev3:#E0814A;--sev4:#E0665A;color-scheme:dark}}
+:root[data-theme="dark"]{--stone:#171817;--paper:#1F211F;--ink:#ECEAE4;--ink-2:#B9B5AC;--ink-3:#8A867E;--line:#34362F;--champagne:#C8AC80;
+  --s1:#D9773E;--s2:#4F8CD6;--sev1:#8FB27A;--sev2:#D9A845;--sev3:#E0814A;--sev4:#E0665A;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--stone);color:var(--ink);font:400 17px/1.65 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--champagne);outline-offset:3px}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:200;line-height:1.05;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1{font-size:clamp(56px,10vw,150px)}
+h2{font-size:clamp(34px,4.6vw,64px)}
+h3{font-size:clamp(22px,2vw,28px);font-weight:300;line-height:1.15}
+h4{font-size:19px;font-weight:400;line-height:1.2;letter-spacing:0}
+p{margin:0}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gut)}
+.eyebrow{font:400 11px/1.3 var(--f-display);letter-spacing:.28em;text-transform:uppercase;color:var(--ink-3)}
+.lead{font-size:clamp(18px,1.6vw,22px);color:var(--ink-2);max-width:60ch}
+.prose{display:grid;gap:1em;max-width:64ch;color:var(--ink-2)}
+.prose b{color:var(--ink);font-weight:600}
+.muted{color:var(--ink-3);font-size:14px}
+section{padding-block:clamp(64px,9vw,128px)}
+.tight{padding-top:0}
+.stack{display:grid;gap:clamp(28px,4vw,48px)}
+
+/* оглавление */
+.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--stone) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.toc .wrap{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-block:10px}
+.toc .wrap::-webkit-scrollbar{display:none}
+.toc a{flex:none;text-decoration:none;font:400 11px/1 var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);padding:9px 12px;border:1px solid transparent;white-space:nowrap}
+.toc a:hover{color:var(--ink)}
+.toc a.on{color:var(--ink);border-color:var(--line);background:var(--paper)}
+
+/* обложка */
+.cover{position:relative;overflow:hidden;background:var(--night);color:var(--on-night)}
+.cover .mosaic{position:absolute;inset:0;display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:1fr;gap:2px;opacity:.9}
+.cover .mosaic i{display:block}
+.cover .veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,14,13,.94) 0%,rgba(13,14,13,.82) 45%,rgba(13,14,13,.35) 100%)}
+.cover .wrap{position:relative;padding-block:clamp(72px,12vw,160px) clamp(48px,7vw,88px);display:grid;gap:28px}
+.cover h1 span{display:block;font-size:.28em;letter-spacing:.01em;margin-top:.55em;color:var(--on-night-2)}
+.cover .lead{color:#cfd2cd}
+.cover .eyebrow{color:var(--on-night-2)}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid rgba(255,255,255,.18);margin-top:20px}
+.meta div{padding:16px 16px 0 0;display:grid;gap:6px;min-width:0}
+.meta dd{margin:0;font-size:15px;color:var(--on-night)}
+.meta dt{font:400 11px/1.3 var(--f-display);letter-spacing:.24em;text-transform:uppercase;color:var(--on-night-2)}
+@media (max-width:760px){.meta{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}.cover .veil{background:rgba(13,14,13,.84)}}
+
+/* главы */
+.chapter{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(16px,3vw,40px);align-items:end;border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:clamp(36px,5vw,64px)}
+.chapter .n{font:200 clamp(72px,11vw,150px)/.8 var(--f-display);letter-spacing:-.05em;color:var(--champagne)}
+.chapter div{display:grid;gap:12px;min-width:0}
+.band .chapter{border-color:rgba(255,255,255,.18)}
+.band .chapter .n{color:inherit;opacity:.85}
+
+.split{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(24px,5vw,80px);align-items:start}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+
+.shot{margin:0;display:grid;gap:12px}
+.shot img{width:100%;border:1px solid var(--line);background:var(--night)}
+.shot figcaption{font-size:14px;color:var(--ink-3);max-width:70ch}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(12px,2vw,24px)}
+@media (max-width:760px){.pair{grid-template-columns:1fr}}
+
+.quote{font:200 clamp(30px,4.2vw,58px)/1.12 var(--f-display);letter-spacing:-.02em;max-width:24ch;text-wrap:balance}
+.quote em{font-style:normal;color:var(--champagne)}
+
+/* плашка честности */
+.note{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:start;background:var(--paper);border:1px solid var(--line);padding:18px 20px;font-size:15px;color:var(--ink-2)}
+.note b{color:var(--ink)}
+.note .tag{font:500 10px/1 var(--f-display);letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--champagne);color:var(--champagne);padding:7px 9px;white-space:nowrap}
+
+/* методы */
+.methods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line)}
+.methods article{padding:22px 22px 22px 0;display:grid;gap:8px;align-content:start;min-width:0;border-bottom:1px solid var(--line)}
+.methods article:not(:nth-child(3n+1)){padding-left:22px;border-left:1px solid var(--line)}
+.methods .k{font:300 13px/1 var(--f-display);color:var(--champagne);letter-spacing:.1em}
+.methods p{font-size:15px;color:var(--ink-2)}
+@media (max-width:860px){.methods{grid-template-columns:1fr 1fr}.methods article:not(:nth-child(3n+1)){padding-left:0;border-left:0}.methods article:nth-child(2n){padding-left:22px;border-left:1px solid var(--line)}}
+@media (max-width:560px){.methods{grid-template-columns:1fr}.methods article:nth-child(2n){padding-left:0;border-left:0}}
+
+/* персоны */
+.personas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2vw,24px)}
+@media (max-width:860px){.personas{grid-template-columns:1fr}}
+.persona{background:var(--paper);border:1px solid var(--line);display:grid;grid-template-rows:auto 1fr;min-width:0}
+.persona header{display:grid;grid-template-columns:76px minmax(0,1fr);gap:16px;padding:20px;border-bottom:1px solid var(--line);align-items:center}
+.persona .tile{width:76px;height:76px;display:grid;place-items:center;font:200 30px/1 var(--f-display);position:relative}
+.persona .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.18) 0 1px,transparent 1px),linear-gradient(to bottom,rgba(0,0,0,.18) 0 1px,transparent 1px);background-size:38px 38px;pointer-events:none}
+.persona .who{display:grid;gap:4px;min-width:0}
+.persona .who small{color:var(--ink-3);font-size:13px}
+.persona .body{padding:20px;display:grid;gap:16px;align-content:start}
+.jtbd{font:300 18px/1.4 var(--f-display);color:var(--ink);border-left:2px solid var(--champagne);padding-left:14px}
+.persona dl{margin:0;display:grid;gap:12px}
+.persona dl div{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:12px}
+.persona dt{font:400 10.5px/1.5 var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);padding-top:2px}
+.persona dd{margin:0;font-size:15px;color:var(--ink-2)}
+@media (max-width:480px){.persona dl div{grid-template-columns:1fr;gap:2px}}
+
+/* CJM */
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);background:var(--paper)}
+.cjm{border-collapse:collapse;min-width:980px;width:100%;font-size:14px}
+.cjm th,.cjm td{padding:14px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);vertical-align:top;text-align:left}
+.cjm thead th{font:400 15px/1.2 var(--f-display);letter-spacing:.02em;background:var(--stone)}
+.cjm thead th small{display:block;font:400 10px/1.4 var(--f-display);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
+.cjm tbody th{font:400 10.5px/1.4 var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);width:120px;background:var(--stone)}
+.cjm td{color:var(--ink-2)}
+.cjm tr.fix td{color:var(--ink)}
+.cjm tr.fix td::before{content:"";display:block;width:18px;height:2px;background:var(--s1);margin-bottom:8px}
+.cjm .pain{color:var(--sev4)}
+.hint{font-size:13px;color:var(--ink-3)}
+
+/* графики */
+.chart{background:var(--paper);border:1px solid var(--line);padding:clamp(16px,2.5vw,28px);display:grid;gap:14px;position:relative}
+.chart header{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline}
+.chart h4{font-size:18px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:14px;height:14px;display:inline-block;border-radius:2px}
+.chart .plot{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.chart svg{width:100%;min-width:640px;height:auto;display:block;overflow:visible}
+.legend i.dot{border-radius:50%}
+.legend i.dot.s{background:transparent}
+.sev{white-space:nowrap}
+.facts.sm b{font-size:clamp(30px,3vw,40px);white-space:nowrap}
+.chart .ax{stroke:var(--line);stroke-width:1}
+.chart .grid{stroke:var(--line);stroke-width:1;stroke-dasharray:2 4}
+.chart text{fill:var(--ink-3);font:12px var(--f-body)}
+.chart text.lbl{fill:var(--ink-2);font-size:12.5px}
+.chart text.val{fill:var(--ink);font-size:12.5px;font-weight:600}
+.chart .l1{stroke:var(--s1);stroke-width:2.5;fill:none}
+.chart .l2{stroke:var(--s2);stroke-width:2.5;fill:none;stroke-dasharray:6 5}
+.chart .d1{fill:var(--s1);stroke:var(--paper);stroke-width:2}
+.chart .d2{fill:var(--s2);stroke:var(--paper);stroke-width:2}
+.chart .rng{stroke:var(--ink-3);stroke-width:2}
+.chart .hit{fill:transparent;cursor:default}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--stone);font-size:13px;line-height:1.4;padding:8px 10px;max-width:260px;opacity:0;transition:opacity .12s;z-index:5}
+.tip.on{opacity:1}
+details.table{font-size:14px;color:var(--ink-2)}
+details.table summary{cursor:pointer;color:var(--ink-3);font-size:13px}
+details.table table{border-collapse:collapse;margin-top:10px;width:100%}
+details.table td,details.table th{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;font-variant-numeric:tabular-nums}
+
+/* состав страницы */
+.comp{display:grid;gap:10px}
+.comp .bar{display:flex;height:44px;gap:2px}
+.comp .bar div{display:flex;align-items:center;padding-inline:12px;font-size:13px;white-space:nowrap;overflow:hidden;color:#fff}
+.comp .row{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:12px;align-items:center}
+.comp .row span{font-size:13px;color:var(--ink-3)}
+
+/* матрица */
+.matrix{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+.matrix th,.matrix td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left}
+.matrix thead th{font:400 10.5px/1.4 var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+.matrix td.c{text-align:center;width:16%}
+.dot{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:middle}
+.dot.p{background:var(--s1)}
+.dot.s{background:transparent;border:2px solid var(--s1)}
+.dot.n{width:6px;height:6px;background:var(--line)}
+
+/* сценарии */
+.flows{display:grid;gap:clamp(18px,2.5vw,28px)}
+.flow{display:grid;grid-template-columns:200px minmax(0,1fr);gap:20px;align-items:start;border-top:1px solid var(--line);padding-top:20px}
+.flow .who{display:grid;gap:6px}
+.flow ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 0;counter-reset:f}
+.flow li{counter-increment:f;display:flex;align-items:center;font-size:14px}
+.flow li span{background:var(--paper);border:1px solid var(--line);padding:8px 12px;display:flex;gap:8px;align-items:baseline}
+.flow li span::before{content:counter(f);font:300 12px/1 var(--f-display);color:var(--champagne)}
+.flow li:not(:last-child)::after{content:"";width:22px;height:1px;background:var(--ink-3);margin-inline:4px}
+.flow li.goal span{background:var(--s1);border-color:var(--s1);color:#fff}
+.flow li.goal span::before{color:#fff}
+.flow li.risk span{border-color:var(--sev4);border-style:dashed}
+.flow .res{grid-column:2;font-size:14px;color:var(--ink-2)}
+@media (max-width:760px){.flow{grid-template-columns:1fr}.flow .res{grid-column:1}}
+
+/* аудит */
+.audit{display:grid;gap:0;border-top:1px solid var(--line)}
+.issue{display:grid;grid-template-columns:140px minmax(0,1fr) minmax(0,1fr) 120px;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);align-items:start}
+.issue h4{margin-bottom:6px}
+.issue p{font-size:14.5px;color:var(--ink-2)}
+.issue .rec{font-size:14.5px;color:var(--ink)}
+.sev{display:inline-flex;gap:8px;align-items:center;font:500 11px/1 var(--f-display);letter-spacing:.14em;text-transform:uppercase}
+.sev i{display:inline-flex;gap:2px}
+.sev i b{width:6px;height:14px;background:var(--line)}
+.sev[data-s="1"] i b:nth-child(-n+1){background:var(--sev1)}
+.sev[data-s="2"] i b:nth-child(-n+2){background:var(--sev2)}
+.sev[data-s="3"] i b:nth-child(-n+3){background:var(--sev3)}
+.sev[data-s="4"] i b:nth-child(-n+4){background:var(--sev4)}
+.heur{font-size:12px;color:var(--ink-3);margin-top:6px}
+.st{font:500 10.5px/1 var(--f-display);letter-spacing:.16em;text-transform:uppercase;padding:7px 9px;border:1px solid var(--line);justify-self:start}
+.st.ok{border-color:var(--sev1);color:var(--sev1)}
+@media (max-width:860px){.issue{grid-template-columns:1fr 1fr}.issue>div:nth-child(2),.issue>div:nth-child(3){grid-column:1/-1}}
+
+/* гипотезы */
+.hyps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2vw,24px)}
+@media (max-width:860px){.hyps{grid-template-columns:1fr}}
+.hyp{background:var(--paper);border:1px solid var(--line);padding:22px;display:grid;gap:14px;align-content:start}
+.hyp .h{font:300 19px/1.35 var(--f-display);color:var(--ink)}
+.hyp .h b{font-weight:500;color:var(--champagne);margin-right:6px}
+.hyp dl{margin:0;display:grid;gap:8px}
+.hyp dl div{display:grid;grid-template-columns:6.5em minmax(0,1fr);gap:10px;font-size:14.5px}
+.hyp dt{font:400 10.5px/1.6 var(--f-display);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+.hyp dd{margin:0;color:var(--ink-2)}
+.events{font:13px/1.6 ui-monospace,Menlo,Consolas,monospace;color:var(--ink-2);background:var(--paper);border:1px solid var(--line);padding:18px 20px;overflow-x:auto}
+.events code{color:var(--ink)}
+
+/* цветные полосы */
+.band .eyebrow{color:inherit;opacity:.72}
+.band .prose,.band .lead{color:var(--band-2)}
+.band .prose b{color:var(--band-1)}
+.band .shot img{border-color:transparent}
+.band .shot figcaption{color:var(--band-2)}
+.night{background:var(--night);color:var(--on-night);--band-1:var(--on-night);--band-2:var(--on-night-2)}
+.kiln{background:radial-gradient(120% 80% at 80% 0%,#F0A06A 0%,var(--kiln) 40%,#9C4A22 100%);color:var(--on-kiln);--band-1:#fff;--band-2:#FBE3D2}
+.water{background:var(--water);color:var(--water-ink);--band-1:var(--water-ink);--band-2:var(--water-ink-2)}
+.trav{background:var(--trav);color:var(--trav-ink);--band-1:var(--trav-ink);--band-2:var(--trav-ink-2)}
+.decision{display:grid;gap:clamp(28px,4vw,44px)}
+.decision+.decision{margin-top:clamp(56px,8vw,104px)}
+.decision .tx{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(24px,5vw,80px)}
+.decision .tx>div{display:grid;gap:14px;align-content:start}
+.answers{font:300 14px/1.4 var(--f-display);letter-spacing:.04em;opacity:.85;border-top:1px solid currentColor;padding-top:10px}
+@media (max-width:860px){.decision .tx{grid-template-columns:1fr}}
+
+/* прогулка */
+.walk{display:grid;gap:16px}
+.walk .stage{position:relative;aspect-ratio:1120/700;max-width:100%;background:#0b0c0b;overflow:hidden}
+.walk .stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .12s linear}
+.walk .stage img.on{opacity:1}
+.walk .ctrl{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center}
+.walk input[type=range]{width:100%;accent-color:var(--kiln)}
+.walk .room{font:300 18px/1 var(--f-display);min-width:7.5em;text-align:right}
+.walk .rooms{display:grid;grid-template-columns:4fr 5fr 4fr 5fr;font:400 10px/1 var(--f-display);letter-spacing:.2em;text-transform:uppercase;color:var(--on-night-2)}
+.walk .rooms span{border-top:1px solid #3a3d3b;padding-top:8px}
+.walk .rooms span.on{color:var(--on-night);border-color:var(--kiln)}
+.pbtn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer;font:16px/1 var(--f-display)}
+.pbtn:hover{background:rgba(255,255,255,.08)}
+@media (max-width:560px){.walk .rooms{font-size:8px;letter-spacing:.1em}.walk .room{min-width:0;font-size:15px}}
+
+.swap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(20px,4vw,48px);align-items:center}
+.swap .stage{position:relative;aspect-ratio:16/10;max-width:100%;overflow:hidden;background:#000}
+.swap .stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s ease}
+.swap .stage img.on{opacity:1}
+.swap .opts{display:grid;gap:10px}
+.swap button{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;align-items:center;text-align:left;background:transparent;border:1px solid rgba(23,48,47,.25);padding:10px 14px 10px 10px;cursor:pointer;color:inherit;font:inherit}
+.swap button i{width:44px;height:44px;display:block}
+.swap button b{font:300 19px/1.1 var(--f-display);display:block}
+.swap button small{font-size:13px;opacity:.75}
+.swap button[aria-pressed="true"]{background:var(--water-ink);color:var(--water);border-color:var(--water-ink)}
+@media (max-width:860px){.swap{grid-template-columns:1fr}.swap .opts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.calc{background:#FBFAF7;color:#1E1D1B;border:1px solid #DCD7CC;padding:clamp(20px,3vw,36px);display:grid;gap:18px;max-width:520px}
+.calc .row{display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid #DCD7CC;padding-bottom:14px;font-size:15px;color:#56524B}
+.calc input[type=number]{width:120px;padding:10px 12px;border:1px solid #DCD7CC;background:#F2F0EB;color:#1E1D1B;font:400 18px/1 var(--f-body);text-align:right;font-variant-numeric:tabular-nums}
+.calc .tg{display:flex;gap:12px;align-items:center;cursor:pointer;font-size:15px}
+.calc .tg input{width:20px;height:20px;accent-color:#D9773E}
+.calc .out{display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.calc .out b{font:200 clamp(40px,6vw,64px)/1 var(--f-display);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.calc .out span{font:400 11px/1.4 var(--f-display);letter-spacing:.2em;text-transform:uppercase;color:#8A857C}
+.calc .old{text-decoration:line-through;color:#8A857C;font-variant-numeric:tabular-nums}
+.calc .gain{font-size:14px;color:#9A7D52}
+
+.sw{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.sw div{display:grid;gap:8px;font-size:13px;color:var(--ink-2);min-width:0}
+.sw i{display:block;aspect-ratio:1/1.15;border:1px solid var(--line)}
+.sw b{font:400 14px/1.2 var(--f-display);color:var(--ink)}
+.sw code{font:12px/1.2 ui-monospace,Menlo,monospace;color:var(--ink-3)}
+@media (max-width:640px){.sw{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.type{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;border-top:1px solid var(--line);padding-top:24px}
+.type .big{font:200 clamp(56px,8vw,104px)/1 var(--f-display);letter-spacing:-.03em}
+@media (max-width:640px){.type{grid-template-columns:1fr}}
+.phones{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,2vw,24px)}
+.phones figure{margin:0;display:grid;gap:10px}
+.phones img{border-radius:22px;border:1px solid var(--line);background:var(--night)}
+.phones figcaption{font-size:13px;color:var(--ink-3)}
+@media (max-width:760px){.phones{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
+.facts div{padding:22px 22px 0 0;display:grid;gap:6px;min-width:0}
+.facts b{font:200 clamp(36px,4vw,56px)/1 var(--f-display);font-variant-numeric:tabular-nums}
+.facts span{color:var(--ink-2);font-size:14.5px}
+@media (max-width:760px){.facts{grid-template-columns:1fr 1fr;row-gap:20px}}
+
+.next{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.next li{padding:14px 0;border-bottom:1px solid var(--line);color:var(--ink-2)}
+.next b{color:var(--ink);font-weight:600}
+footer{padding-block:48px 64px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3)}
+footer .wrap{display:grid;gap:10px}
+@media (prefers-reduced-motion:reduce){.walk .stage img,.swap .stage img{transition:none}}
+</style>
+
+<header class="cover">
+  <div class="mosaic" id="mosaic" aria-hidden="true"></div>
+  <div class="veil" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="eyebrow">Кейс · UX-исследование и концепт главной · 2026</p>
+    <h1>КерамаХолл<span>Как продавать плитку, которую нельзя потрогать</span></h1>
+    <p class="lead">Магазин керамогранита из Оренбурга выходит в Москву через дилеров. Одной главной странице нужно убедить три очень разных аудитории. Я разобрала, как каждая из них выбирает плитку, где спотыкается, и собрала главную как прогулку по дому, где у каждой аудитории своя комната.</p>
+    <dl class="meta">
+      <div><dt>Роль</dt><dd>UX-исследование, UX/UI-дизайн, вёрстка</dd></div>
+      <div><dt>Методы</dt><dd>Персоны, CJM, сценарии, эвристический аудит</dd></div>
+      <div><dt>Технологии</dt><dd>HTML, CSS 3D, JavaScript без фреймворков</dd></div>
+      <div><dt>Статус</dt><dd>Рабочий прототип, концепт</dd></div>
+    </dl>
+    <p style="margin-top:28px"><a href="../" style="display:inline-block;padding:13px 22px;border:1px solid currentColor;border-radius:999px;color:inherit;text-decoration:none;font-weight:500">Открыть живой прототип →</a></p>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Главы кейса">
+  <div class="wrap" id="tocWrap">
+    <a href="#context">Контекст</a>
+    <a href="#research">Исследование</a>
+    <a href="#personas">Персоны</a>
+    <a href="#cjm">Путь клиента</a>
+    <a href="#flows">Сценарии</a>
+    <a href="#audit">Аудит</a>
+    <a href="#solutions">Решения</a>
+    <a href="#hyp">Гипотезы</a>
+    <a href="#design">Дизайн</a>
+  </div>
+</nav>
+
+<!-- 01 контекст -->
+<section class="wrap" id="context">
+  <div class="chapter"><span class="n">01</span><div><p class="eyebrow">Контекст</p><h2>Магазин, который вырос в дистрибьютора</h2></div></div>
+  <div class="split">
+    <div class="stack">
+      <div class="facts sm" style="grid-template-columns:1fr 1fr">
+        <div><b>70 000 м²</b><span>керамогранита на складе в Оренбурге</span></div>
+        <div><b>55</b><span>коллекций, 6 форматов от 45×45 до 100×100 см</span></div>
+        <div><b>2</b><span>склада: розница и шоурум в Оренбурге, дистрибуция из Москвы</span></div>
+        <div><b>−35 %</b><span>от РРЦ для дилеров, −40 % при самовывозе</span></div>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="prose">
+        <p>КерамаХолл продаёт керамогранит и сантехнику. В Оренбурге у компании шоурум и склад, в Москве только склад, и туда она заходит через дилеров. Поэтому у одной главной страницы сразу три задачи: продавать в розницу, привлекать дизайнеров и строителей и объяснять дилерам, сколько они заработают.</p>
+        <p>Старый сайт был каталогом. Он отвечал на вопрос «что есть в наличии», но не помогал представить плитку в интерьере и не объяснял, чем КерамаХолл отличается от соседнего магазина.</p>
+      </div>
+      <p class="quote">Покупатель не может потрогать плитку через экран. Значит, сайт должен <em>положить её в комнату</em>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 исследование -->
+<section class="wrap tight" id="research">
+  <div class="chapter"><span class="n">02</span><div><p class="eyebrow">Исследование</p><h2>Как я изучала поведение пользователей</h2></div></div>
+  <div class="stack">
+    <div class="note"><span class="tag">Важно</span><p><b>Это концепт без доступа к аналитике и интервью с клиентами компании.</b> Персоны, путь клиента и оценки эмоций ниже собраны кабинетным методом и требуют проверки. Количественные данные в кейсе получены замерами прототипа: длина страницы, расстояние до кнопок, доля сцен с прокруткой.</p></div>
+    <div class="methods">
+      <article><span class="k">Метод 1</span><h4>Кабинетное исследование</h4><p>Как люди выбирают отделку: этапы ремонта, сомнения, роль шоурума, вопросы о партиях и тоне. Типичные паттерны интернет-магазинов плитки: сетка карточек, фильтры, одно фото коллекции.</p></article>
+      <article><span class="k">Метод 2</span><h4>Прото-персоны и JTBD</h4><p>Четыре роли из модели бизнеса компании: частный покупатель, дизайнер, строитель и дилер. Для каждой сформулирована работа, которую она «нанимает» сайт сделать.</p></article>
+      <article><span class="k">Метод 3</span><h4>Карта пути клиента</h4><p>Шесть этапов от вдохновения до укладки для главной аудитории. На каждом этапе: действия, вопросы, барьеры и то, чем помогает сайт.</p></article>
+      <article><span class="k">Метод 4</span><h4>Сценарии и замеры</h4><p>Путь каждой роли по прототипу до целевого действия. Замерено, сколько экранов прокрутки отделяет человека от нужной кнопки на десктопе и телефоне.</p></article>
+      <article><span class="k">Метод 5</span><h4>Эвристический аудит</h4><p>Оценка прототипа по 10 эвристикам Нильсена и когнитивный проход сценариев. Каждая проблема получила оценку серьёзности от 1 до 4.</p></article>
+      <article><span class="k">Метод 6</span><h4>Гипотезы и план метрик</h4><p>Что проверить после запуска, какой метрикой и каким способом: A/B-тест, карты прокрутки, вебвизор, события в аналитике.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 03 персоны -->
+<section class="wrap tight" id="personas">
+  <div class="chapter"><span class="n">03</span><div><p class="eyebrow">Прото-персоны</p><h2>Четыре человека и их вопросы</h2></div></div>
+  <div class="stack">
+    <p class="lead">Каждой персоне я дала «её» плитку: так в решениях сразу видно, для кого сделана сцена. Главная по объёму аудитория — частный покупатель. Главная по деньгам — дилеры и объекты.</p>
+    <div class="personas">
+      <article class="persona">
+        <header><div class="tile" style="background:#C9B8A2;color:#2b241b">М</div><div class="who"><h3>Марина, 36</h3><small>Делает ремонт ванной в новостройке, Оренбург · плитка Hana</small></div></header>
+        <div class="body">
+          <p class="jtbd">«Когда выбираю плитку впервые, хочу увидеть её в своей ванной до покупки, чтобы не пожалеть через месяц».</p>
+          <dl>
+            <div><dt>Контекст</dt><dd>Смотрит с телефона вечером, вдохновляется подборками интерьеров, в шоурум едет уже с коротким списком.</dd></div>
+            <div><dt>Боли</dt><dd>На фото все плитки похожи. Боится ошибиться с тоном. Не понимает, сколько метров брать с запасом.</dd></div>
+            <div><dt>Ищет на сайте</dt><dd>Плитку в интерьере, цену, понятный следующий шаг без обязательств.</dd></div>
+            <div><dt>Что даёт сайт</dt><dd>Ванная с четырьмя коллекциями, пять интерьеров в «Дизайнах», заявка «Расчёт за вас».</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="persona">
+        <header><div class="tile" style="background:#E6E2DA;color:#2b241b">А</div><div class="who"><h3>Алексей, 31</h3><small>Дизайнер интерьеров, ведёт 3–5 объектов · плитка Marbella Pearl</small></div></header>
+        <div class="body">
+          <p class="jtbd">«Когда собираю проект для заказчика, хочу быстро показать плитку в его интерьере и получить свою скидку».</p>
+          <dl>
+            <div><dt>Контекст</dt><dd>Работает с десктопа, сравнивает несколько поставщиков, ценит образцы и визуализации.</dd></div>
+            <div><dt>Боли</dt><dd>Коллекцию выводят из ассортимента посреди проекта. Нет 3D-моделей. Скидку приходится выбивать звонками.</dd></div>
+            <div><dt>Ищет на сайте</dt><dd>Условия для дизайнеров, наличие, 3D-сцену с точной раскладкой.</dd></div>
+            <div><dt>Что даёт сайт</dt><dd>Гостиная в 3D с предложением для дизайнеров, блок «Профессионалам».</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="persona">
+        <header><div class="tile" style="background:#A9A7A1;color:#1b1b1a">С</div><div class="who"><h3>Сергей, 45</h3><small>Прораб, малоэтажное строительство · плитка Toledo gray</small></div></header>
+        <div class="body">
+          <p class="jtbd">«Когда закупаю плитку на объект, хочу получить одну партию на весь объём, чтобы тон не разошёлся между подъездами».</p>
+          <dl>
+            <div><dt>Контекст</dt><dd>Звонит и пишет в мессенджер, сайт открывает, чтобы проверить наличие и условия.</dd></div>
+            <div><dt>Боли</dt><dd>Разные партии отличаются тоном и калибром. Отгрузки срываются. Нет расчёта с запасом на подрезку.</dd></div>
+            <div><dt>Ищет на сайте</dt><dd>Остатки, резерв партии, поставку по графику стройки.</dd></div>
+            <div><dt>Что даёт сайт</dt><dd>Ванная с обещанием «Одна партия на весь объект», кнопки «Запросить расчёт» и «Обсудить объект».</dd></div>
+          </dl>
+        </div>
+      </article>
+      <article class="persona">
+        <header><div class="tile" style="background:#2C2B29;color:#eee">Д</div><div class="who"><h3>Дмитрий, 40</h3><small>Владелец салона отделочных материалов, Подмосковье · плитка Enrique black</small></div></header>
+        <div class="body">
+          <p class="jtbd">«Когда расширяю ассортимент, хочу понять свою маржу до звонка, чтобы не тратить время на переговоры впустую».</p>
+          <dl>
+            <div><dt>Контекст</dt><dd>Сравнивает поставщиков по цене, логистике и надёжности. Решает быстро, если цифры понятны.</dd></div>
+            <div><dt>Боли</dt><dd>Цену для дилера узнаёт только у менеджера. Остатки приходится запрашивать. Неясна логистика.</dd></div>
+            <div><dt>Ищет на сайте</dt><dd>Скидку от РРЦ, склад в Москве, личный кабинет.</dd></div>
+            <div><dt>Что даёт сайт</dt><dd>Кнопка «Дилерам» на первом экране, калькулятор цены, кабинет с остатками 24/7.</dd></div>
+          </dl>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 04 CJM -->
+<section class="wrap tight" id="cjm">
+  <div class="chapter"><span class="n">04</span><div><p class="eyebrow">Путь клиента</p><h2>Где Марина теряет уверенность</h2></div></div>
+  <div class="stack">
+    <p class="lead">Карта пути главной аудитории. Самая глубокая просадка приходится на выбор коллекции и расчёт: человек видит плитку квадратиком и не понимает, сколько её нужно. Именно туда я поставила главные сцены сайта.</p>
+    <div class="chart" id="emo">
+      <header><h4>Настроение покупателя по этапам, оценка от 1 до 5</h4>
+        <div class="legend"><span><i style="background:var(--s1)"></i>Главная КерамаХолл</span><span><i style="background:var(--s2)"></i>Типичный каталог плитки</span></div></header>
+      <div class="plot"><svg id="emoSvg" viewBox="0 0 900 300" role="img" aria-label="Линейный график: у типичного каталога настроение падает до 1 на этапе расчёта, у главной КерамаХолл держится на уровне 3–4"></svg></div>
+      <p class="hint">Гипотеза по итогам CJM, а не замер. Проверяется интервью и юзабилити-тестом.</p>
+      <details class="table"><summary>Показать таблицей</summary><table><thead><tr><th>Этап</th><th>Типичный каталог</th><th>Главная КерамаХолл</th></tr></thead><tbody id="emoTable"></tbody></table></details>
+      <div class="tip" id="emoTip"></div>
+    </div>
+    <div class="scroller" role="region" aria-label="Карта пути клиента, прокручивается вбок" tabindex="0">
+      <table class="cjm">
+        <thead><tr><th></th>
+          <th><small>Этап 1</small>Вдохновение</th><th><small>Этап 2</small>Поиск магазина</th><th><small>Этап 3</small>Выбор коллекции</th><th><small>Этап 4</small>Расчёт и цена</th><th><small>Этап 5</small>Решение</th><th><small>Этап 6</small>Покупка и укладка</th></tr></thead>
+        <tbody>
+          <tr><th>Действия</th><td>Сохраняет интерьеры, обсуждает с мужем, смотрит ролики про ремонт</td><td>Ищет «керамогранит Оренбург», открывает 3–4 сайта</td><td>Листает коллекции, сравнивает фото, сужает до 2–3 вариантов</td><td>Считает метраж, ищет цену за м² и запас на подрезку</td><td>Едет в шоурум или звонит, смотрит партию</td><td>Оплачивает, ждёт доставку, передаёт плиточнику</td></tr>
+          <tr><th>Вопросы</th><td>Какой стиль мне нравится?</td><td>Кому можно доверять?</td><td>Как это будет смотреться у меня?</td><td>Сколько брать и сколько это стоит?</td><td>Совпадёт ли тон с образцом?</td><td>Хватит ли одной партии?</td></tr>
+          <tr><th>Барьеры</th><td>Слишком много вариантов</td><td>Все сайты похожи</td><td class="pain">Плитка показана квадратиком 200 пикселей</td><td class="pain">Нет расчёта, цены разбросаны</td><td>Дорога в шоурум отнимает выходной</td><td>Боязнь пересортицы по партиям</td></tr>
+          <tr class="fix"><th>Что делает сайт</th><td>Пять интерьеров в «Дизайнах»</td><td>Факты о производстве на первом экране</td><td>Плитка на террасе, в коридоре, в гостиной и ванной</td><td>«Расчёт за вас»: 2–3 варианта из наличия с ценой</td><td>Подписка на остатки партий, адрес шоурума</td><td>Резерв одной партии, отгрузка с двух складов</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 05 сценарии -->
+<section class="wrap tight" id="flows">
+  <div class="chapter"><span class="n">05</span><div><p class="eyebrow">Сценарии и замеры</p><h2>Сколько нужно прокрутить до своей кнопки</h2></div></div>
+  <div class="stack">
+    <p class="lead">Я прошла прототип за каждую персону и замерила, на каком экране она впервые слышит обращение к себе и где находится её целевая кнопка. Страница длинная: 22 экрана на десктопе и 24 на телефоне.</p>
+
+    <div class="chart" id="dist">
+      <header><h4>Экран, на котором находится точка пути, десктоп 1440×900</h4>
+        <div class="legend"><span><i style="background:var(--s2)"></i>Первое обращение к роли</span><span><i style="background:var(--s1)"></i>Целевая кнопка</span></div></header>
+      <div class="plot"><svg id="distSvg" viewBox="0 0 900 260" role="img" aria-label="Гантельный график: покупатель от 0,6 до 12,3 экрана, дилер от 0,6 до 16,4, дизайнер от 8,1 до 18,6, строитель от 9,5 до 18,6"></svg></div>
+      <p class="hint">Замер прототипа: положение элемента, делённое на высоту экрана. Всего 22,3 экрана.</p>
+      <details class="table"><summary>Показать таблицей</summary><table><thead><tr><th>Роль</th><th>Первое обращение</th><th>Экран</th><th>Целевая кнопка</th><th>Экран</th></tr></thead><tbody id="distTable"></tbody></table></details>
+      <div class="tip" id="distTip"></div>
+    </div>
+
+    <div class="pair" style="align-items:start">
+      <div class="chart">
+        <header><h4>Из чего состоит страница, в экранах</h4></header>
+        <div class="comp">
+          <div class="row"><span>Десктоп</span><div class="bar"><div style="flex:15.1;background:var(--s1)">Сцены с прокруткой · 15,1</div><div style="flex:7.2;background:var(--ink-3)">Блоки · 7,2</div></div></div>
+          <div class="row"><span>Телефон</span><div class="bar"><div style="flex:15.1;background:var(--s1)">Сцены · 15,1</div><div style="flex:9.3;background:var(--ink-3)">Блоки · 9,3</div></div></div>
+        </div>
+        <p class="hint">68 % длины страницы на десктопе занимают четыре закреплённые сцены: производство (3 экрана), улица (3,6), дом (5,2) и «Дизайны» (3,3).</p>
+      </div>
+      <div class="prose">
+        <p><b>Что показал замер.</b> Дилер получает быстрый вход: кнопка «Дилерам и дистрибьюторам» стоит на первом экране и переносит сразу к своему блоку. У покупателя тоже есть быстрый путь в каталог. А дизайнер и строитель впервые слышат обращение к себе только на 8–9 экране, внутри 3D-сцены, а их кнопки стоят на 18,6 экране.</p>
+        <p><b>Вывод.</b> Сцены хорошо продают плитку, но удлиняют путь профессионалов. Отсюда две рекомендации в аудите: якорное меню по ролям и закреплённая кнопка заявки.</p>
+      </div>
+    </div>
+
+    <div class="flows">
+      <div class="flow"><div class="who"><p class="eyebrow">Марина</p><h4>Подобрать плитку в ванную</h4></div>
+        <ol><li><span>Первый экран, факты</span></li><li><span>Терраса</span></li><li><span>Дом, ванная, 4 коллекции</span></li><li class="goal"><span>«Оставить заявку», экран 12,3</span></li></ol>
+        <p class="res">Самый естественный сценарий: сцены идут ровно в порядке её вопросов. Риск: на телефоне это 12 экранов прокрутки до формы.</p></div>
+      <div class="flow"><div class="who"><p class="eyebrow">Дмитрий</p><h4>Оценить выгоду дилерства</h4></div>
+        <ol><li><span>Кнопка «Дилерам», экран 0,6</span></li><li><span>Калькулятор: РРЦ → своя цена</span></li><li class="goal"><span>«Стать дилером»</span></li></ol>
+        <p class="res">Короткий путь из трёх шагов. Калькулятор отвечает на главный вопрос до разговора с менеджером.</p></div>
+      <div class="flow"><div class="who"><p class="eyebrow">Алексей</p><h4>Узнать условия для дизайнеров</h4></div>
+        <ol><li><span>Первый экран</span></li><li class="risk"><span>Нет входа для дизайнеров</span></li><li><span>Гостиная в 3D, экран 8,1</span></li><li><span>Фильм, дилеры, о компании</span></li><li class="goal"><span>«Стать партнёром», экран 18,6</span></li></ol>
+        <p class="res">Самый длинный путь. Пунктиром отмечен шаг, на котором дизайнер может уйти, не найдя себя на первом экране.</p></div>
+      <div class="flow"><div class="who"><p class="eyebrow">Сергей</p><h4>Зарезервировать партию на объект</h4></div>
+        <ol><li><span>Первый экран</span></li><li><span>Ванная: «Одна партия», экран 9,5</span></li><li class="risk"><span>Плашка «Расчёт под объект» не нажимается</span></li><li class="goal"><span>«Обсудить объект», экран 18,6</span></li></ol>
+        <p class="res">Обещание звучит рано и точно, а плашка под ним выглядит как кнопка. Нажать её нельзя, и действие откладывается на 9 экранов.</p></div>
+    </div>
+
+    <div class="scroller" role="region" aria-label="Матрица: какой блок для какой роли" tabindex="0">
+      <table class="matrix">
+        <thead><tr><th>Блок страницы</th><th class="c">Марина</th><th class="c">Алексей</th><th class="c">Сергей</th><th class="c">Дмитрий</th></tr></thead>
+        <tbody>
+          <tr><td>Производство, факты</td><td class="c"><i class="dot s" title="второстепенно"></i></td><td class="c"><i class="dot s"></i></td><td class="c"><i class="dot p" title="основное"></i></td><td class="c"><i class="dot s"></i></td></tr>
+          <tr><td>Улица, 20 мм</td><td class="c"><i class="dot p"></i></td><td class="c"><i class="dot s"></i></td><td class="c"><i class="dot p"></i></td><td class="c"><i class="dot n"></i></td></tr>
+          <tr><td>Дом в 3D</td><td class="c"><i class="dot p"></i></td><td class="c"><i class="dot p"></i></td><td class="c"><i class="dot p"></i></td><td class="c"><i class="dot p"></i></td></tr>
+          <tr><td>Расчёт за вас</td><td class="c"><i class="dot p"></i></td><td class="c"><i class="dot s"></i></td><td class="c"><i class="dot s"></i></td><td class="c"><i class="dot n"></i></td></tr>
+          <tr><td>Дизайны</td><td class="c"><i class="dot p"></i></td><td class="c"><i class="dot p"></i></td><td class="c"><i class="dot n"></i></td><td class="c"><i class="dot n"></i></td></tr>
+          <tr><td>Москва, калькулятор</td><td class="c"><i class="dot n"></i></td><td class="c"><i class="dot n"></i></td><td class="c"><i class="dot n"></i></td><td class="c"><i class="dot p"></i></td></tr>
+          <tr><td>О компании</td><td class="c"><i class="dot s"></i></td><td class="c"><i class="dot s"></i></td><td class="c"><i class="dot s"></i></td><td class="c"><i class="dot s"></i></td></tr>
+          <tr><td>Профессионалам</td><td class="c"><i class="dot n"></i></td><td class="c"><i class="dot p"></i></td><td class="c"><i class="dot p"></i></td><td class="c"><i class="dot n"></i></td></tr>
+          <tr><td>Факты, подписка</td><td class="c"><i class="dot s"></i></td><td class="c"><i class="dot s"></i></td><td class="c"><i class="dot s"></i></td><td class="c"><i class="dot s"></i></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend"><span><i class="dot p"></i>Основной блок для роли</span><span><i class="dot s"></i>Полезен</span><span><i class="dot n"></i>Не про неё</span></div>
+  </div>
+</section>
+
+<!-- 06 аудит -->
+<section class="wrap tight" id="audit">
+  <div class="chapter"><span class="n">06</span><div><p class="eyebrow">Юзабилити-аудит прототипа</p><h2>Что мешает и что с этим делать</h2></div></div>
+  <div class="stack">
+    <p class="lead">Я проверила прототип по эвристикам Нильсена и прошла сценарии за каждую персону. Серьёзность от 1 (косметика) до 4 (блокирует задачу). Девять находок: две уже исправлены, остальные вошли в план доработок.</p>
+    <div class="audit">
+      <div class="issue"><div><span class="sev" data-s="3"><i><b></b><b></b><b></b><b></b></i>3 · серьёзно</span></div><div><h4>Профессионалам далеко до своей кнопки</h4><p>Дизайнер и строитель не видят обращения к себе на первом экране. Их кнопки стоят на 18,6 экране из 22.</p><p class="heur">Эвристика: гибкость и эффективность использования</p></div><div><p class="rec">Добавить на первый экран переключатель ролей «Ремонт / Дизайнеру / Строителю / Дилеру» с якорями к своим блокам.</p></div><span class="st">В плане</span></div>
+      <div class="issue"><div><span class="sev" data-s="3"><i><b></b><b></b><b></b><b></b></i>3 · серьёзно</span></div><div><h4>Длинные сцены без выхода</h4><p>68 % страницы занимают закреплённые сцены. Дом длится 5,2 экрана, и пропустить его нельзя. Нетерпеливый посетитель может уйти раньше заявки.</p><p class="heur">Эвристика: контроль и свобода пользователя</p></div><div><p class="rec">Кнопка «Пропустить сцену» и индикатор прогресса, как уже сделано в «Дизайнах». Сократить дом до 4 экранов.</p></div><span class="st">В плане</span></div>
+      <div class="issue"><div><span class="sev" data-s="3"><i><b></b><b></b><b></b><b></b></i>3 · серьёзно</span></div><div><h4>Плашки в 3D-доме похожи на кнопки</h4><p>Под предложениями для ролей стоят плашки в рамке: «−35 % · самовывоз −40 %», «персональная скидка», «расчёт под объект». Они выглядят нажимаемыми, но это просто подписи.</p><p class="heur">Эвристика: соответствие ожиданиям, видимость возможностей</p></div><div><p class="rec">Сделать плашки ссылками на блок своей роли или убрать рамку, чтобы они читались как подпись.</p></div><span class="st">В плане</span></div>
+      <div class="issue"><div><span class="sev" data-s="2"><i><b></b><b></b><b></b><b></b></i>2 · заметно</span></div><div><h4>На телефоне пропадают пояснения</h4><p>В 3D-доме на узком экране скрыт текст под заголовками для дистрибьюторов, дизайнеров и строителей. Остаются заголовок и плашка, без объяснения условий.</p><p class="heur">Эвристика: узнавание вместо запоминания</p></div><div><p class="rec">Вернуть одну короткую строку пояснения под заголовком на ширине до 760 px.</p></div><span class="st">В плане</span></div>
+      <div class="issue"><div><span class="sev" data-s="2"><i><b></b><b></b><b></b><b></b></i>2 · заметно</span></div><div><h4>«Сантехника» в меню ведёт в «Дизайны»</h4><p>Пункты «Каталог» и «Сантехника» открывают один и тот же блок. Сантехника на главной упомянута, но своего раздела не имеет.</p><p class="heur">Эвристика: соответствие ожиданиям</p></div><div><p class="rec">Отдельный блок сантехники с 3–4 позициями из сцены ванной либо убрать пункт из меню до появления раздела.</p></div><span class="st">В плане</span></div>
+      <div class="issue"><div><span class="sev" data-s="2"><i><b></b><b></b><b></b><b></b></i>2 · заметно</span></div><div><h4>Розничный покупатель не видит цен</h4><p>На главной есть цены для дилеров, но нет ни одной цены за м² для розницы. Марина уходит считать на другой сайт.</p><p class="heur">Эвристика: видимость состояния системы</p></div><div><p class="rec">Показывать «от … ₽/м²» на плашке коллекции в 3D-доме и в карточках террасы.</p></div><span class="st">В плане</span></div>
+      <div class="issue"><div><span class="sev" data-s="2"><i><b></b><b></b><b></b><b></b></i>2 · заметно</span></div><div><h4>Кнопки ведут в общую форму</h4><p>«Стать дилером» и «Получить условия» открывают общую заявку, где по умолчанию выбрана роль «Делаю ремонт». Дилеру или строителю приходится переключать её самому, и легко отправить заявку не с той ролью.</p><p class="heur">Эвристика: предотвращение ошибок</p></div><div><p class="rec">Передавать роль из кнопки в форму и менять заголовок формы под роль.</p></div><span class="st">В плане</span></div>
+      <div class="issue"><div><span class="sev" data-s="2"><i><b></b><b></b><b></b><b></b></i>2 · заметно</span></div><div><h4>Текст террасы терялся на свету окон</h4><p>Подзаголовок «Плита толщиной 20 мм…» ложился на освещённые окна дома и читался плохо.</p><p class="heur">Эвристика: эстетичный и минималистичный дизайн</p></div><div><p class="rec">Мягкая тёмная подложка и тень под текстом.</p></div><span class="st ok">Исправлено</span></div>
+      <div class="issue"><div><span class="sev" data-s="1"><i><b></b><b></b><b></b><b></b></i>1 · косметика</span></div><div><h4>Камень дробился на квадраты</h4><p>Фото фактуры ужималось в каждую плитку, рисунок повторялся и выдавал, что это картинка.</p><p class="heur">Эвристика: соответствие реальному миру</p></div><div><p class="rec">Фактура ложится одним полотном, швы рисуются поверх. Прожилки идут через несколько плит.</p></div><span class="st ok">Исправлено</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 решения -->
+<div id="solutions">
+<section class="band night">
+  <div class="wrap">
+    <div class="chapter"><span class="n">07</span><div><p class="eyebrow">Решения</p><h2>Страница как прогулка по дому</h2></div></div>
+    <div class="decision">
+      <div class="tx">
+        <div><p class="eyebrow">Производство</p><h3 style="font-size:clamp(28px,3vw,40px)">Начать с огня</h3><p class="answers">Отвечает Сергею и Марине: «кому доверять?»</p></div>
+        <div class="prose"><p>Первый экран мог бы быть баннером со скидкой. Я сделала его цехом: тёмная сцена, плиты уходят в перспективу, из глубины идёт оранжевое свечение печи. Это единственное место на сайте с ярким оранжевым, поэтому оно запоминается.</p><p>Под заголовком при прокрутке по очереди всплывают три факта: <b>1 200 °C</b> обжига, <b>меньше 0,5 %</b> водопоглощения и <b>70 000 м²</b> на складе. Это не обещания, а цифры, которые можно проверить.</p></div>
+      </div>
+      <figure class="shot"><img src="img/prod.jpg" width="1280" height="800" loading="lazy" alt="Сцена производства: тёмный цех, плиты в перспективе, тёплое свечение печи и три факта внизу экрана"><figcaption>Свечение печи слегка растёт, пока посетитель прокручивает сцену.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="band kiln">
+  <div class="wrap decision">
+    <div class="tx">
+      <div><p class="eyebrow">Улица · 20 мм</p><h3 style="font-size:clamp(28px,3vw,40px)">Терраса вместо фотографии</h3><p class="answers">Отвечает Марине: «как это будет выглядеть у меня?»</p></div>
+      <div class="prose"><p>Уличный керамогранит 20 мм трудно продать по фото: на снимке он выглядит как обычная плитка. А главное в нём толщина. Его кладут на песок или гравий, по нему ездят, он не скользит после дождя.</p><p>Поэтому плиты собираются прямо в сцене: одна встаёт перед домом с освещёнными окнами, по бокам поднимаются ещё восемь, и появляются карточки коллекций <b>Alder biege</b> и <b>Jambo</b>. Сцена целиком нарисована на CSS и весит меньше одной фотографии.</p></div>
+    </div>
+    <figure class="shot"><img src="img/d-street.jpg" width="1440" height="900" loading="lazy" alt="Сцена «Терраса, бассейн, двор, заезд»: дом с освещёнными окнами, перед ним девять вертикальных плит и карточки коллекций"><figcaption>Финал сцены: плиты подписаны названиями коллекций, карточки ведут в каталог.</figcaption></figure>
+  </div>
+</section>
+
+<section class="band night">
+  <div class="wrap decision">
+    <div class="tx">
+      <div><p class="eyebrow">Дом в 3D</p><h3 style="font-size:clamp(28px,3vw,40px)">Пройдите по дому</h3><p class="answers">По комнате на роль: Дмитрию, Алексею, Сергею</p></div>
+      <div class="prose"><p>Камера входит в дом, идёт по коридору, заглядывает в гостиную и останавливается в ванной. Комнаты собраны из CSS-плоскостей в 3D, на пол и стены ложится камень выбранной коллекции со швами точного формата.</p><p>Каждая комната работает на свою роль: в коридоре дистрибьюторам говорят о складе в Москве, в гостиной дизайнерам предлагают 3D-проект, в ванной строителям обещают одну партию на объект. <b>Попробуйте сами:</b> потяните ползунок или нажмите ▶.</p></div>
+    </div>
+    <div class="walk" id="walk">
+      <div class="stage" id="walkStage"></div>
+      <div class="ctrl">
+        <button class="pbtn" id="walkPlay" type="button" aria-label="Воспроизвести прогулку">▶</button>
+        <input id="walkRange" type="range" min="0" max="17" value="0" aria-label="Положение камеры в доме">
+        <span class="room" id="walkRoom">Вход</span>
+      </div>
+      <div class="rooms" aria-hidden="true"><span>Вход · Jambo</span><span>Коридор · дилерам</span><span>Гостиная · дизайнерам</span><span>Ванная · строителям</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band water">
+  <div class="wrap decision">
+    <div class="tx">
+      <div><p class="eyebrow">Ванная</p><h3 style="font-size:clamp(28px,3vw,40px)">Четыре ванные в одной</h3><p class="answers">Снимает главный страх Марины: «а вдруг не так»</p></div>
+      <div class="prose"><p>Когда камера останавливается в ванной, прокрутка продолжает работать, но теперь меняет плитку на стенах. Посетитель видит одну и ту же комнату в четырёх коллекциях: тёплой Hana, голубой Water fall, светлой Tiana и глубокой Enrique black. Мебель та же, меняется только плитка, и разницу видно сразу.</p></div>
+    </div>
+    <div class="swap">
+      <div class="stage" id="swapStage">
+        <img class="on" src="img/bath-0.jpg" width="1280" height="800" alt="Ванная с плиткой Hana на стенах">
+        <img src="img/bath-1.jpg" width="1280" height="800" alt="Ванная с плиткой Water fall на стенах" loading="lazy">
+        <img src="img/bath-2.jpg" width="1280" height="800" alt="Ванная с плиткой Tiana на стенах" loading="lazy">
+        <img src="img/bath-3.jpg" width="1280" height="800" alt="Ванная с плиткой Enrique black на стенах" loading="lazy">
+      </div>
+      <div class="opts" role="group" aria-label="Коллекция на стенах">
+        <button type="button" aria-pressed="true" data-i="0"><i style="background:#C9B8A2"></i><span><b>Hana</b><small>60×120 · тёплый беж</small></span></button>
+        <button type="button" aria-pressed="false" data-i="1"><i style="background:#9FB3B5"></i><span><b>Water fall</b><small>60×120 · вода и свет</small></span></button>
+        <button type="button" aria-pressed="false" data-i="2"><i style="background:#E6E2DA"></i><span><b>Tiana</b><small>60×120 · светлый камень</small></span></button>
+        <button type="button" aria-pressed="false" data-i="3"><i style="background:#2C2B29"></i><span><b>Enrique black</b><small>60×120 · чёрный мрамор</small></span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band trav">
+  <div class="wrap decision">
+    <div class="tx">
+      <div><p class="eyebrow">Дизайны</p><h3 style="font-size:clamp(28px,3vw,40px)">Каталог, снятый как фильм</h3><p class="answers">Вдохновение для Марины и Алексея</p></div>
+      <div class="prose"><p>Пять интерьеров, по одной коллекции в каждом, сменяют друг друга при прокрутке. Внизу бежит полоса прогресса, в углу идёт таймкод от 00:00 до 00:24. На каждом кадре точка с названием плитки, как метка в журнале, а фон текстовой колонки окрашен в тон коллекции.</p><p>Перед фильмом стоит заявка «Расчёт за вас». Роль выбирается одним нажатием: ремонт, дизайнер, строитель или дилер.</p></div>
+    </div>
+    <div class="pair">
+      <figure class="shot"><img src="img/film.jpg" width="1280" height="800" loading="lazy" alt="Кадр «Тёплый минимализм»: интерьер слева, текст на бежевом фоне справа"><figcaption>Кадр 01 из 05. Фон текста повторяет тон коллекции Karizma.</figcaption></figure>
+      <figure class="shot"><img src="img/request.jpg" width="1280" height="800" loading="lazy" alt="Блок заявки «Подберём плитку и посчитаем метраж под ваш проект»"><figcaption>Заявка: план или размеры комнаты, 2–3 варианта из наличия с ценой.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="band night">
+  <div class="wrap decision">
+    <div class="tx">
+      <div><p class="eyebrow">Москва · дистрибуция</p><h3 style="font-size:clamp(28px,3vw,40px)">Дилер считает выгоду сам</h3><p class="answers">Отвечает Дмитрию: «сколько я заработаю?»</p></div>
+      <div class="prose"><p>Шоурума в Москве нет, и страница говорит об этом прямо. Вместо обещаний дилер получает калькулятор: вводит розничную цену с витрины и сразу видит свою закупочную. Переключатель самовывоза меняет скидку с 35 на 40 %. Ниже работающая копия калькулятора.</p></div>
+    </div>
+    <div class="pair" style="align-items:center">
+      <form class="calc" id="calc" aria-label="Калькулятор цены дилера">
+        <div class="row"><label for="rrp">РРЦ на витрине, ₽/м²</label><input id="rrp" type="number" min="0" step="50" value="2000" inputmode="numeric"></div>
+        <div class="row"><span>Розничная цена</span><span class="old" id="old">2 000 ₽</span></div>
+        <label class="tg" for="pick"><input id="pick" type="checkbox"> Самовывоз со склада в Москве</label>
+        <div class="out"><span id="disc">Ваша цена<br>−35 %</span><b id="price">1 300 ₽</b></div>
+        <p class="gain" id="gain">Разница с витриной: 700 ₽ с каждого квадратного метра</p>
+      </form>
+      <figure class="shot"><img src="img/d-dealer.jpg" width="1440" height="900" loading="lazy" alt="Блок «Москву начинаем с дилеров» с условиями и калькулятором"><figcaption>Блок на сайте: условия слева, калькулятор справа.</figcaption></figure>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- 08 гипотезы -->
+<section class="wrap" id="hyp">
+  <div class="chapter"><span class="n">08</span><div><p class="eyebrow">Гипотезы и метрики</p><h2>Как проверить, что это работает</h2></div></div>
+  <div class="stack">
+    <p class="lead">Каждое решение — ставка, которую нужно проверить на живых людях. Вот что я бы измеряла в первые два месяца после запуска.</p>
+    <div class="hyps">
+      <article class="hyp"><p class="h"><b>H1</b>Ванная с четырьмя коллекциями увеличит долю заявок на расчёт от частных покупателей.</p><dl><div><dt>Метрика</dt><dd>Конверсия в заявку с ролью «Делаю ремонт»</dd></div><div><dt>Проверка</dt><dd>A/B-тест: сцена против статичной галереи из 4 фото</dd></div><div><dt>Успех</dt><dd>Рост конверсии, значимый на 95 %</dd></div></dl></article>
+      <article class="hyp"><p class="h"><b>H2</b>Калькулятор приведёт больше дилеров, чем текст с условиями.</p><dl><div><dt>Метрика</dt><dd>Доля посетителей блока, изменивших РРЦ, и клики «Стать дилером»</dd></div><div><dt>Проверка</dt><dd>События в аналитике, сравнение с периодом без калькулятора</dd></div><div><dt>Успех</dt><dd>Больше 30 % посетителей блока трогают калькулятор</dd></div></dl></article>
+      <article class="hyp"><p class="h"><b>H3</b>Длинные сцены на телефоне повышают риск ухода до формы.</p><dl><div><dt>Метрика</dt><dd>Глубина прокрутки по блокам, доля дошедших до «Расчёта за вас»</dd></div><div><dt>Проверка</dt><dd>Карта прокрутки и вебвизор, сравнение десктопа и телефона</dd></div><div><dt>Действие</dt><dd>Если потеря в доме больше 40 %, сократить сцену и добавить «Пропустить»</dd></div></dl></article>
+      <article class="hyp"><p class="h"><b>H4</b>Переключатель ролей на первом экране сократит путь дизайнера с 18,6 экрана до одного клика.</p><dl><div><dt>Метрика</dt><dd>Время до клика «Стать партнёром», доля заявок от дизайнеров</dd></div><div><dt>Проверка</dt><dd>A/B-тест: первый экран с ролями и без</dd></div><div><dt>Успех</dt><dd>Время до целевого клика сокращается вдвое</dd></div></dl></article>
+    </div>
+    <div class="events" role="region" aria-label="План событий аналитики" tabindex="0">
+<code>scene_progress</code>   {scene: production | street | house | film, progress: 25 | 50 | 75 | 100}<br>
+<code>bath_collection</code>  {collection: hana | water_fall | tiana | enrique_black}<br>
+<code>role_select</code>      {role: repair | designer | builder | dealer, place: hero | form}<br>
+<code>dealer_calc</code>      {rrp, pickup: true | false}<br>
+<code>cta_click</code>        {cta, section, screen}<br>
+<code>lead_submit</code>      {form: request | dealer | subscribe | exit_popup, role}
+    </div>
+  </div>
+</section>
+
+<!-- 09 дизайн -->
+<section class="wrap tight" id="design">
+  <div class="chapter"><span class="n">09</span><div><p class="eyebrow">Визуальный язык и реализация</p><h2>Камень, графит и тёплый свет</h2></div></div>
+  <div class="stack">
+    <div class="split">
+      <p class="lead">Ориентир — редакционная подача дорогих плиточных брендов: много воздуха, волосяные линии, плитка как главный герой кадра. Тёмные сцены с тёплым светом чередуются со светлыми разворотами, чтобы 22 экрана не утомляли.</p>
+      <div class="stack">
+        <div class="sw" role="list">
+          <div role="listitem"><i style="background:#F4F2EE"></i><b>Камень</b><code>#F4F2EE</code></div>
+          <div role="listitem"><i style="background:#2A2926"></i><b>Графит</b><code>#2A2926</code></div>
+          <div role="listitem"><i style="background:#111312"></i><b>Ночь</b><code>#111312</code></div>
+          <div role="listitem"><i style="background:#A88B62"></i><b>Шампань</b><code>#A88B62</code></div>
+          <div role="listitem"><i style="background:#E9864A"></i><b>Печь</b><code>#E9864A</code></div>
+        </div>
+        <div class="type">
+          <div><p class="eyebrow" style="margin-bottom:10px">Заголовки · Jost 200</p><p class="big">Плитка 60×120</p></div>
+          <div><p class="eyebrow" style="margin-bottom:10px">Текст · Manrope 400</p><p style="color:var(--ink-2)">Тонкий геометрический гротеск в заголовках напоминает чертёж раскладки. Manrope держит читаемость на мелких кеглях и в цифрах цен. Кнопки квадратные, без скруглений, как край плиты.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="phones">
+      <figure><img src="img/m-hero.jpg" width="780" height="1688" loading="lazy" alt="Мобильный первый экран"><figcaption>Производство</figcaption></figure>
+      <figure><img src="img/m-street.jpg" width="780" height="1688" loading="lazy" alt="Мобильная сцена террасы"><figcaption>Терраса</figcaption></figure>
+      <figure><img src="img/m-house.jpg" width="780" height="1688" loading="lazy" alt="Мобильная сцена гостиной в 3D"><figcaption>Дом в 3D</figcaption></figure>
+      <figure><img src="img/m-dealer.jpg" width="780" height="1688" loading="lazy" alt="Мобильный калькулятор дилера"><figcaption>Калькулятор дилера</figcaption></figure>
+    </div>
+    <div class="facts">
+      <div><b>~80 КБ</b><span>вся страница: разметка, стили и скрипты</span></div>
+      <div><b>10</b><span>блоков, из них 4 сцены с прокруткой</span></div>
+      <div><b>0</b><span>библиотек: только CSS 3D и requestAnimationFrame</span></div>
+      <div><b>2</b><span>режима: с анимацией и статичный при «уменьшить движение»</span></div>
+    </div>
+    <div class="prose">
+      <p><b>Прокрутка управляет сценой.</b> Закреплённые блоки занимают от трёх до пяти экранов. Скрипт переводит положение прокрутки в прогресс от 0 до 1 и по нему двигает камеру, плиты и подписи.</p>
+      <p><b>Камень одним полотном.</b> Фото фактуры ложится на стены и пол целиком, поверх идут швы формата 60×120, 20×120 или 100×100. Если фото не загрузилось, остаётся градиент в тоне коллекции, и сцена не разваливается.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap tight">
+  <div class="split">
+    <div style="display:grid;gap:16px"><p class="eyebrow">Дальше</p><h2>Следующие шаги</h2></div>
+    <ul class="next">
+      <li><b>Проверить персоны</b> 5–6 интервью: два частных покупателя, дизайнер, прораб и два дилера.</li>
+      <li><b>Юзабилити-тест прототипа</b> на телефоне: найти коллекцию для ванной и оставить заявку.</li>
+      <li><b>Исправить проблемы аудита</b> серьёзности 3: переключатель ролей, пропуск сцен, нажимаемые плашки в доме.</li>
+      <li><b>Каталог и карточка товара</b> в том же языке, с калькулятором метража и запасом на подрезку.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Концепт выполнен как портфолио-проект и не является официальным сайтом компании. Персоны и оценки эмоций — гипотезы кабинетного исследования, замеры сделаны на прототипе. Фотографии в прототипе взяты с Unsplash по <a href="https://unsplash.com/license" target="_blank" rel="noopener">лицензии Unsplash</a>.</p>
+    <p>Фотографы: Imagine Reality Studio, Ela De Pure, Bilal Mansuri, Peter Muniz, Puscas Adryan, Brian Wangenheim, Alena Lavrova, Artur Solarz, Mitch Harris, Augustine Wong, Brandon Stecz, Nick Night, Colin Watts, Pandav Tank, engin akyurt, Pawel Czerwinski.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  function el(tag,attrs,parent,text){ var e=document.createElementNS(NS,tag); for(var k in attrs) e.setAttribute(k,attrs[k]); if(text!=null) e.textContent=text; if(parent) parent.appendChild(e); return e; }
+  function tipper(box,tip){
+    return {show:function(evt,html){ tip.innerHTML=html; tip.classList.add("on"); var r=box.getBoundingClientRect(), x=evt.clientX-r.left+14, y=evt.clientY-r.top+14; if(x+tip.offsetWidth>r.width) x=r.width-tip.offsetWidth-8; tip.style.left=x+"px"; tip.style.top=y+"px"; }, hide:function(){ tip.classList.remove("on"); }};
+  }
+
+  /* мозаика обложки: тона коллекций */
+  var tones=["#E6E2DA","#D9CFC1","#C9B8A2","#A88D70","#9FB3B5","#A9A7A1","#4A4741","#2C2B29","#cbc3b6","#e3ddd3"], m=document.getElementById("mosaic");
+  for(var i=0;i<12*8;i++){ var t=document.createElement("i"); t.style.background=tones[(i*7+Math.floor(i/12)*3)%tones.length]; m.appendChild(t); }
+
+  /* график настроения */
+  (function(){
+    var stages=["Вдохновение","Поиск магазина","Выбор коллекции","Расчёт и цена","Решение","Покупка"],
+        typ=[4,2,2,1,2,3], kh=[4,3,4,3,4,4],
+        notes=["Подборки интерьеров","Факты о производстве","Плитка в комнатах","«Расчёт за вас»","Подписка, шоурум","Одна партия"];
+    var svg=document.getElementById("emoSvg"), L=70,R=860,T=20,B=240, x=function(i){return L+(R-L)*i/(stages.length-1);}, y=function(v){return B-(B-T)*(v-1)/4;};
+    for(var v=1;v<=5;v++){ el("line",{x1:L,x2:R,y1:y(v),y2:y(v),"class":v===1?"ax":"grid"},svg); el("text",{x:L-14,y:y(v)+4,"text-anchor":"end"},svg,v); }
+    stages.forEach(function(s,i){ el("text",{x:x(i),y:B+26,"text-anchor":"middle","class":"lbl"},svg,s); });
+    function path(a){ return a.map(function(v,i){return (i?"L":"M")+x(i)+" "+y(v);}).join(" "); }
+    el("path",{d:path(typ),"class":"l2"},svg); el("path",{d:path(kh),"class":"l1"},svg);
+    typ.forEach(function(v,i){ el("circle",{cx:x(i),cy:y(v),r:5,"class":"d2"},svg); });
+    kh.forEach(function(v,i){ el("circle",{cx:x(i),cy:y(v),r:5.5,"class":"d1"},svg); });
+    el("text",{x:R+8,y:y(kh[5])-8,"class":"val"},svg,"КерамаХолл");
+    el("text",{x:R+8,y:y(typ[5])+16,"class":"val"},svg,"Каталог");
+    var box=document.getElementById("emo"), tp=tipper(box,document.getElementById("emoTip"));
+    stages.forEach(function(s,i){ var h=el("rect",{x:x(i)-(R-L)/10,y:T,width:(R-L)/5,height:B-T,"class":"hit"},svg);
+      h.addEventListener("mousemove",function(e){ tp.show(e,"<b>"+s+"</b><br>Каталог: "+typ[i]+" из 5<br>КерамаХолл: "+kh[i]+" из 5<br>"+notes[i]); });
+      h.addEventListener("mouseleave",tp.hide); });
+    var tb=document.getElementById("emoTable"); stages.forEach(function(s,i){ var r=tb.insertRow(); r.insertCell().textContent=s; r.insertCell().textContent=typ[i]; r.insertCell().textContent=kh[i]; });
+  })();
+
+  /* гантельный график: экран первого обращения и целевой кнопки */
+  (function(){
+    var rows=[["Марина · ремонт","«Смотреть каталог»",0.6,"«Оставить заявку»",12.3],["Дмитрий · дилер","«Дилерам и дистрибьюторам»",0.6,"«Стать дилером»",16.4],["Алексей · дизайнер","Гостиная в 3D",8.1,"«Стать партнёром»",18.6],["Сергей · строитель","Ванная в 3D",9.5,"«Обсудить объект»",18.6]];
+    var svg=document.getElementById("distSvg"), L=170,R=860,T=16,step=52, MAX=22.3, x=function(v){return L+(R-L)*v/MAX;};
+    var Bt=T+step*rows.length;
+    [0,5,10,15,20,22.3].forEach(function(v){ el("line",{x1:x(v),x2:x(v),y1:T-6,y2:Bt-14,"class":v===0?"ax":"grid"},svg); el("text",{x:x(v),y:Bt+4,"text-anchor":"middle"},svg,(v===22.3?"22,3 · конец":String(v).replace(".",","))); });
+    el("text",{x:L,y:Bt+24},svg,"экран прокрутки");
+    var box=document.getElementById("dist"), tp=tipper(box,document.getElementById("distTip"));
+    rows.forEach(function(r,i){ var cy=T+14+i*step;
+      el("text",{x:0,y:cy+4,"class":"lbl"},svg,r[0]);
+      el("line",{x1:x(r[2]),x2:x(r[4]),y1:cy,y2:cy,"class":"rng"},svg);
+      el("circle",{cx:x(r[2]),cy:cy,r:7,"class":"d2"},svg);
+      el("circle",{cx:x(r[4]),cy:cy,r:7,"class":"d1"},svg);
+      el("text",{x:x(r[4])+12,y:cy+4,"class":"val"},svg,String(r[4]).replace(".",","));
+      var h=el("rect",{x:0,y:cy-step/2,width:R+40,height:step,"class":"hit"},svg);
+      h.addEventListener("mousemove",function(e){ tp.show(e,"<b>"+r[0]+"</b><br>"+r[1]+": экран "+String(r[2]).replace(".",",")+"<br>"+r[3]+": экран "+String(r[4]).replace(".",",")); });
+      h.addEventListener("mouseleave",tp.hide);
+    });
+    var tb=document.getElementById("distTable"); rows.forEach(function(r){ var tr=tb.insertRow(); [r[0],r[1],String(r[2]).replace(".",","),r[3],String(r[4]).replace(".",",")].forEach(function(c){ tr.insertCell().textContent=c; }); });
+  })();
+
+  /* оглавление: подсветка текущей главы */
+  var links=[].slice.call(document.querySelectorAll(".toc a")), map={};
+  links.forEach(function(a){ map[a.getAttribute("href").slice(1)]=a; });
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ links.forEach(function(a){a.classList.remove("on");}); var a=map[en.target.id]; if(a){ a.classList.add("on"); a.scrollIntoView({block:"nearest",inline:"nearest"}); } } }); },{rootMargin:"-45% 0px -50% 0px"});
+    Object.keys(map).forEach(function(id){ var s=document.getElementById(id); if(s) io.observe(s); });
+  }
+
+  /* прогулка по дому */
+  var N=18, stage=document.getElementById("walkStage"), range=document.getElementById("walkRange"), roomEl=document.getElementById("walkRoom"), play=document.getElementById("walkPlay"), marks=[].slice.call(document.querySelectorAll(".walk .rooms span")), imgs=[];
+  var ROOMS=["Вход","Коридор","Гостиная","Ванная"];
+  function roomOf(i){ return i<=3?0 : i<=8?1 : i<=12?2 : 3; }
+  for(var k=0;k<N;k++){ var im=new Image(); im.src="img/walk/walk-"+(k<10?"0":"")+k+".jpg"; im.alt="Кадр прогулки по дому, "+ROOMS[roomOf(k)].toLowerCase(); im.width=1120; im.height=700; if(k>0) im.loading="lazy"; if(k===0) im.className="on"; stage.appendChild(im); imgs.push(im); }
+  var cur=0;
+  function show(i){ imgs[cur].classList.remove("on"); cur=i; imgs[cur].classList.add("on"); var r=roomOf(i); roomEl.textContent=ROOMS[r]; marks.forEach(function(m,j){ m.classList.toggle("on",j===r); }); }
+  show(0);
+  range.addEventListener("input",function(){ stop(); show(+range.value); });
+  var timer=null, reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function stop(){ if(timer){ clearInterval(timer); timer=null; play.textContent="▶"; play.setAttribute("aria-label","Воспроизвести прогулку"); } }
+  play.addEventListener("click",function(){ if(timer){ stop(); return; } if(cur>=N-1) show(0); play.textContent="❚❚"; play.setAttribute("aria-label","Пауза"); timer=setInterval(function(){ if(cur>=N-1){ stop(); return; } show(cur+1); range.value=cur; }, reduce?700:260); });
+
+  /* коллекции в ванной */
+  var sImgs=[].slice.call(document.querySelectorAll("#swapStage img")), btns=[].slice.call(document.querySelectorAll(".swap button"));
+  btns.forEach(function(b){ b.addEventListener("click",function(){ var i=+b.dataset.i; btns.forEach(function(x){ x.setAttribute("aria-pressed",String(x===b)); }); sImgs.forEach(function(im,j){ im.classList.toggle("on",j===i); }); }); });
+
+  /* калькулятор дилера, та же формула, что на сайте */
+  var rrp=document.getElementById("rrp"), pick=document.getElementById("pick"), fmt=function(v){ return Math.round(v).toLocaleString("ru-RU")+" ₽"; };
+  function calc(){ var v=Math.max(0,parseFloat(rrp.value)||0), d=pick.checked?.40:.35, p=v*(1-d);
+    document.getElementById("old").textContent=fmt(v); document.getElementById("price").textContent=fmt(p);
+    document.getElementById("disc").innerHTML="Ваша цена<br>−"+Math.round(d*100)+" %";
+    document.getElementById("gain").textContent="Разница с витриной: "+fmt(v-p)+" с каждого квадратного метра"; }
+  rrp.addEventListener("input",calc); pick.addEventListener("change",calc);
+  document.getElementById("calc").addEventListener("submit",function(e){ e.preventDefault(); });
+  calc();
+})();
+</script>
