@@ -1,0 +1,42 @@
+name: video
+on:
+  push:
+    branches: [screenshots]
+    paths: ['tools/video/**', '.github/workflows/video.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm i --no-save playwright@1.47.2 && npx playwright install --with-deps chromium
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-noto-color-emoji
+      - name: Render frames and cards
+        working-directory: tools/video
+        run: mkdir -p frames && NODE_PATH=$GITHUB_WORKSPACE/node_modules node vid.js && NODE_PATH=$GITHUB_WORKSPACE/node_modules node cards.js
+      - name: Encode
+        working-directory: tools/video
+        run: |
+          N=$(ls frames | wc -l)
+          OFF=$(python3 -c "print(round(1.6+$N/30,3))")
+          mkdir -p $GITHUB_WORKSPACE/video
+          ffmpeg -hide_banner -loglevel error -y \
+            -loop 1 -t 2.8 -framerate 30 -i intro.jpg \
+            -framerate 30 -i frames/f%05d.jpg \
+            -loop 1 -t 3.5 -framerate 30 -i outro.jpg \
+            -filter_complex "[0:v]scale=1920:1080,setsar=1,format=yuv420p,fade=t=in:st=0:d=0.5[a];[1:v]scale=1920:1080,setsar=1,format=yuv420p[b];[2:v]scale=1920:1080,setsar=1,format=yuv420p,fade=t=out:st=3:d=0.5[c];[a][b]xfade=transition=fade:duration=0.6:offset=2.2[ab];[ab][c]xfade=transition=fade:duration=0.6:offset=$OFF[v]" \
+            -map "[v]" -c:v libx264 -preset slow -crf 22 -pix_fmt yuv420p -movflags +faststart -r 30 $GITHUB_WORKSPACE/video/keramahall-video.mp4
+          ls -la $GITHUB_WORKSPACE/video
+      - name: Commit video
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add video
+          git commit -m "Видео с keramahall.vercel.app [skip ci]" || echo "nothing to commit"
+          git push origin HEAD:screenshots

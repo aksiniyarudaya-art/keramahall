@@ -1,0 +1,10 @@
+const { chromium } = require('playwright');
+(async()=>{const b=await chromium.launch({});
+const p=await b.newPage({viewport:{width:1280,height:720},deviceScaleFactor:1.5});
+await p.goto('file://'+__dirname+'/card.html',{waitUntil:'networkidle'});
+const set=(e,h,t)=>p.evaluate(([e,h,t])=>{document.getElementById('e').textContent=e;document.getElementById('h').innerHTML=h;document.getElementById('p').innerHTML=t;},[e,h,t]);
+await set('UX-кейс · концепт главной','КерамаХолл','Как продавать плитку, <span class="k">которую нельзя потрогать</span>');
+await p.screenshot({path:'intro.jpg',type:'jpeg',quality:92});
+await set('Внутри кейса','Персоны · CJM · аудит','4 роли, 22 экрана замеров, 9 находок<br>и гипотезы для проверки. <span class="k">Ссылка в посте</span>');
+await p.screenshot({path:'outro.jpg',type:'jpeg',quality:92});
+await b.close();})();
